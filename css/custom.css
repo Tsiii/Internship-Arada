@@ -1,0 +1,7 @@
+footer a{ 
+    color: inherit!important;
+}
+footer a:hover{
+    text-decoration: none;
+    color: #858796!important;
+}

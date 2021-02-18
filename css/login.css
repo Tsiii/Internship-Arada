@@ -1,0 +1,164 @@
+body {
+    background: url(../Images/forlogin2.jpg) no-repeat center center fixed;
+    background-size: cover;  
+    margin-top: 40px;
+} 
+body .tab {
+    margin: 0;
+    color: #6a6f8c;  
+    font: 600 16px/18px 'Open Sans', sans-serif;
+} 
+.card { 
+    background-color: transparent;
+    border: none;
+}
+.login-box {
+    width: 100%; 
+    margin: auto;
+    max-width: 525px;
+    min-height: 505px;
+    position: relative;
+    background: url(../Images/backgroundlogin.jpg) no-repeat center;
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);    
+    border: 1px solid #e3e6f0;
+    border-radius: .50rem;
+
+} 
+.login-snip {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 50px 40px 50px 40px; 
+    background: rgb(0 23 67 / 82%);
+}
+ 
+ 
+.login-space .group .check {
+    display: none;
+}
+
+.login-snip .tab,
+.login-space .group .label,
+.login-space .group .btn {
+    text-transform: uppercase
+}
+
+.login-snip .tab {
+    font-size: 22px; 
+    margin: 0 15px 20px 0;
+    display: inline-block;
+    border-bottom: 2px solid transparent;
+    color: #fff;
+    border-color: #1161ee
+}  
+ 
+.login-space .group {
+    margin-bottom: 15px
+}
+
+.login-space .group .label,
+.login-space .group .input,
+.login-space .group .btn {
+    width: 100%;
+    color: #fff;
+    display: block
+}
+
+.login-space .group .input,
+.login-space .group .btn {
+    border: none;
+    padding: 15px 20px;
+    border-radius: 25px; 
+}
+  
+.login-space .group .label {
+    color: #aaa;
+    font-size: 12px
+}
+ 
+.login-space .group label .icon {
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    position: relative;
+    display: inline-block;
+    background: rgba(255, 255, 255, .1)
+}
+
+.login-space .group label .icon:before,
+.login-space .group label .icon:after {
+    content: '';
+    width: 10px;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    transition: all .2s ease-in-out 0s
+}
+
+.login-space .group label .icon:before {
+    left: 3px;
+    width: 5px;
+    bottom: 6px;
+    transform: scale(0) rotate(0)
+}
+
+.login-space .group label .icon:after {
+    top: 6px;
+    right: 0;
+    transform: scale(0) rotate(0)
+}
+
+.login-space .group .check:checked+label {
+    color: #fff
+}
+
+.login-space .group .check:checked+label .icon {
+    background: #1161ee
+}
+
+.login-space .group .check:checked+label .icon:before {
+    transform: scale(1) rotate(45deg)
+}
+
+.login-space .group .check:checked+label .icon:after {
+    transform: scale(1) rotate(-45deg)
+}
+  
+.login-space .group .input,:focus{ 
+    border: none;
+    padding: 15px 20px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, .1); 
+}
+.login-space .group .input:focus {
+    outline: none;
+    border: 2px solid #a74e3263;
+    box-shadow: none;
+}
+
+.login-space .group .input:hover {
+    border: 2px solid #a74e3263;
+    box-shadow: none;
+}
+:focus{
+    
+    outline: none;
+}
+a {
+    color: inherit;
+    text-decoration: none
+}
+a:hover {
+    color: #b30202;
+    text-decoration: none;
+    -webkit-text-stroke-width: medium;
+}
+.hr {
+    height: 2px;
+    margin: 40px 0 20px 0;
+    background: rgba(255, 255, 255, .2)
+} 
+ 
+::placeholder {
+    color: #b3b3b3
+}
