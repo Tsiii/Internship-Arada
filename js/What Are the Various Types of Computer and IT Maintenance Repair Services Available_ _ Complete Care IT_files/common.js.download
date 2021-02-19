@@ -1,0 +1,11 @@
+jQuery(document).ready(function(){
+    
+	jQuery('.home-banner .arrow-down').click(function(event) {
+        event.preventDefault();
+		var $anchor = jQuery(this);
+		jQuery('html, body').stop().animate({
+            scrollTop: jQuery($anchor).offset().top
+        }, 1000, 'easeInOutExpo');
+    });
+	
+});

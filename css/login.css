@@ -7,7 +7,7 @@ body .tab {
     margin: 0;
     color: #6a6f8c;  
     font: 600 16px/18px 'Open Sans', sans-serif;
-} 
+}  
 .card { 
     background-color: transparent;
     border: none;
@@ -16,7 +16,7 @@ body .tab {
     width: 100%; 
     margin: auto;
     max-width: 525px;
-    min-height: 505px;
+    min-height: 560px;
     position: relative;
     background: url(../Images/backgroundlogin.jpg) no-repeat center;
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);    
@@ -72,7 +72,7 @@ body .tab {
 }
   
 .login-space .group .label {
-    color: #aaa;
+    color: #01adff;
     font-size: 12px
 }
  
