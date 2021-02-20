@@ -1,5 +1,10 @@
-<?php    
-?>   
+<?php   
+    include("include/security.php");   
+   
+    include("include/sidemenu.php"); 
+    include("include/top.php"); 
+?> 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,16 +13,16 @@
     <title>Registration</title>
     
     <!-- Custom fonts for this template -->
-    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="../vendor/datatables2/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="vendor/datatables2/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>  
 <style>
@@ -32,10 +37,7 @@
 
 <body style="margin-top: 25px; 
     background: url(../Images/forlogin.jpg) no-repeat center center fixed;">  
-
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2  text-center mb-4 text-primary " style='color: #79caff!important;'>Arada Subcity ICT</h1>
-    <div class="mb-4 col-lg-6 col-md-4 col-sm-4  border rounded border-light p-4 card " style="background-color: #ffffff2e; color:#00ffd0; margin-left: 1%!important;">
+    <div class="mb-4 mb-lg-0 col-md-5  border rounded border-light p-4 card " style="background-color: #ffffff2e; color:#00ffd0;; margin:25px 75px!important;">
         <h1 class="text-center text-md-center mb-0 h3">Create an account</h1> 
         <form action="#" class="mb-4 mb-lg-0 col-md-10 "style="margin: 0 auto;">
 
@@ -159,17 +161,23 @@
                     </div>  
                 </div>    
                 <!-- End of Form -->           
-                       
-
+                      
+                <!-- End of Form -->
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" value="" id="terms" required="">
+                    <label class="form-check-label" for="terms">
+                        I agree to the <a href="#">terms and conditions</a>
+                    </label>
+                </div>
             </div>
             <button type="submit" name="register" class="btn btn-block btn-primary">Sign in</button>
         </form>
 
-        <div class="mt-3 mb-3 text-center">
+        <div class="mt-3 mb-4 text-center">
             <span class="font-weight-normal">or</span>
         </div> 
 
-        <div class="d-flex justify-content-center align-items-center mt-2">
+        <div class="d-flex justify-content-center align-items-center mt-4">
             <span class="font-weight-normal">
                 Already have an account?
                 <a href="./login.php" class="font-weight-bold">Login here</a>
@@ -236,5 +244,5 @@
     ?> 
     
 <?php      
-    include("footer.php");  
+    include("admin/footer.php");  
 ?>   

@@ -382,6 +382,7 @@ while ($row1=mysqli_fetch_array($result)) {
                     } */?>
                 </div> 
             </div>
+<<<<<<< HEAD
         </div>
 
         <!-- Content Column -->
@@ -425,6 +426,8 @@ while ($row1=mysqli_fetch_array($result)) {
                     </div>
                 </div>
             </div> 
+=======
+>>>>>>> 4fd727baf874207cff1257c2e351ee4379a2f34e
         </div> 
     </div>
 

@@ -1,7 +1,7 @@
 </div>
             <!-- Footer --> 
 
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer bg-white ">
                 
                 <a class="d-flex justify-content-center"> 
                    <div class="mx-3"> Copyright &copy; Arada Subcity 2021 </div>
