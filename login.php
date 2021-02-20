@@ -10,13 +10,8 @@
             <?php
         }
     }  
-<<<<<<< HEAD:Admin/admin.php
     include("../includes/server.php");  
 
-=======
-    include("includes/server.php");  
- 
->>>>>>> 4fd727baf874207cff1257c2e351ee4379a2f34e:login.php
 ?> 
 
 <!DOCTYPE html>
@@ -60,7 +55,6 @@
                         <div class="login-space">
                             <div class="login">
                             
-<<<<<<< HEAD:Admin/admin.php
                                 <form action="" method="POST" class="user">
                                     <div class="group"> 
                                         <label for="user" class="label">Username</label> 
@@ -85,39 +79,6 @@
                                     <div class="foot text-center"> <a href="#">Forgot Password?</a> </div>
                                 </form>
                 
-=======
-                            <form action="" method="POST" class="user">
-                                <div class="group"> 
-                                    <label for="user" class="label">Username</label> 
-                                    <input id="user" type="text" name="username" class="input" placeholder="Enter your username"> 
-                                </div>
-
-                                <div class="group"> 
-                                    <label for="pass" class="label">Password</label> 
-                                    <input id="pass" type="password" name="password" class="input" data-type="password" placeholder="Enter your password"> 
-                                </div>
-
-                                <div class="group"> 
-                                    <input id="check" type="checkbox" class="check" checked> <label for="check">
-                                        <span class="icon"></span> Keep me Signed in</label> 
-                                </div>
-
-                                <div class="group"> 
-                                    <button type="submit" name="login" class="btn btn-primary btn-user btn-block">Login</button> 
-                                </div>
-
-                                <div class="hr"></div>
-                                <div class="foot text-center"> <a href="#">Forgot Password?</a> </div>
-                            </form>
-                            
-                            <div class="d-flex justify-content-center align-items-center mt-4">
-                                <span class="font-weight-normal">
-                                    No Account Yet?
-                                    <a href="./register.php" class="text-warning">Register</a>
-                                </span>
-                            </div>
-
->>>>>>> 4fd727baf874207cff1257c2e351ee4379a2f34e:login.php
                             </div>  
                         </div> 
                     </div>
