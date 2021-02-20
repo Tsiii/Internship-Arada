@@ -238,7 +238,8 @@
                                             <?php  
                                             $service = mysqli_query($db, "SELECT COUNT(ID), Services FROM maintenancerequest WHERE Assigned_To = '$_POST[assignto]' AND Request_Status = 'MAINTAINED' GROUP BY Services HAVING COUNT(ID) > 0; ");
                                                                             
-                                            $total_cost = 0; 
+                                            $total_cost = 0;               
+                                            $s_total_cost = 0; 
                                             $total_item = 0;
                                             $total_quantity = 0 ;               
                                             while ($rowq=mysqli_fetch_assoc($service)) {  
@@ -253,12 +254,14 @@
 
                                                     $services2= mysqli_query($db,"SELECT Cost FROM services WHERE Services = '$rowq[Services]' ");
                                                     while ($rowq2=mysqli_fetch_assoc($services2)) {
-                                                        
-                                                        
+                                                         
                                                         $unitCost = 1 * $rowq2["Cost"] ;
-                                                        $sumCost = $quantity * $rowq2["Cost"] ;  
+                                                        $sumCost = $quantity * $rowq2["Cost"] ;
+
                                                         $total_quantity += $quantity; 
                                                         $total_cost += $sumCost;
+                                                         
+                                                        $s_total_cost += $unitCost;
                                                         ?>
 
                                                         <td> <?php echo $unitCost; ?>  </td> 
@@ -275,7 +278,7 @@
                                     </table>
 
                                     <div class="text-dark mt-2 mb-4 float-right ">
-                                        <i class="text-lg alert alert-success ">Total Item: <?php echo $total_quantity;?></i> 
+                                        <i class="text-lg alert alert-success ">Total Item: <?php echo $total_quantity;?></i>  
                                         <i class="text-lg alert alert-warning ">Total Cost: <?php echo $total_cost;?></i>  
                                     </div>  
                                 </div> 
@@ -299,6 +302,17 @@
                                         <?php
                                         $result = mysqli_query($db, "SELECT * FROM maintenancerequest WHERE Assigned_To = '$_POST[assignto]' ");
                                             
+                                        
+                                        $unitCost = 0;
+                                        $totalCost = 0 ;
+                                        $total_cost = 0;            
+                                        $s_total_cost = 0; 
+                                        $total_item = 0;   
+                                        $tCost = 0 ;  
+                                         
+                                        $total_item = 0;     
+                                        $total_cost = 0;  
+
                                         while ($row1=mysqli_fetch_array($result)) {
                                             $position=16; // Define how many character you want to display.
                                             $readDate= $row1["Services"];
@@ -316,18 +330,36 @@
                                                 <td> <?php echo $row1["Computer_Type"]; ?>  </td>  
                                                 <td> <?php echo $row1["Assigned_To"]; ?>  </td>   
                                                 <td> <?php echo $row1["Request_Status"]; ?>  </td>                                                   
-                                                <td> <?php echo $Date; ?>  </td>   
+                                                <td> <?php echo $Date; ?>  </td>
+
+                                                <?php 
+                                                
+                                                
+                                                
+                                                    $services2= mysqli_query($db, "SELECT Cost FROM services WHERE Services = '$row1[Services]' ");
+                                                    
+                                                    while ($rowq2=mysqli_fetch_assoc($services2)) {
+                                                        $service = mysqli_query($db, "SELECT COUNT(ID), Services FROM maintenancerequest WHERE Assigned_To = '$_POST[assignto]'  GROUP BY Ticket_Number HAVING COUNT(ID) > 0; ");
+                                                            
+                                                        while ($rowq=mysqli_fetch_assoc($service)) {
+                                                            $quantity  = $rowq["COUNT(ID)"];
+                                                        }
+                                                        
+                                                        $unitCost = 1 * $rowq2["Cost"];
+                                                        $total_item += $quantity;
+                                                        $total_cost += $unitCost;
+                                                    }
+                                                 ?> 
                                             </tr>
-                                            <?php
+                                            <?php 
                                         }   ?>
                                     </tbody>
                                 </table> 
 
                                 <div class="text-dark mt-2 mb-3 float-right ">
-                                    <i class="text-lg alert alert-danger "> Total Item: <?php echo $total_item; ?></i> 
-                                    <i class="text-lg alert alert-danger "> Total Cost: <?php echo $totalearning ;?></i>  
-                                </div> 
-
+                                    <i class="text-lg alert alert-danger "> Total Item: <?php echo $total_item ; ?></i> 
+                                    <i class="text-lg alert alert-warning ">Total Cost: <?php echo $total_cost ;?></i>  
+                                </div>  
                             </div>
                         </div>  
                                             
