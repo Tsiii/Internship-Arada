@@ -10,8 +10,13 @@
             <?php
         }
     }  
+<<<<<<< HEAD:Admin/admin.php
+    include("../includes/server.php");  
+
+=======
     include("includes/server.php");  
  
+>>>>>>> 4fd727baf874207cff1257c2e351ee4379a2f34e:login.php
 ?> 
 
 <!DOCTYPE html>
@@ -55,6 +60,32 @@
                         <div class="login-space">
                             <div class="login">
                             
+<<<<<<< HEAD:Admin/admin.php
+                                <form action="" method="POST" class="user">
+                                    <div class="group"> 
+                                        <label for="user" class="label">Username</label> 
+                                        <input id="user" type="text" name="username" class="input" placeholder="Enter your username"> 
+                                    </div>
+
+                                    <div class="group"> 
+                                        <label for="pass" class="label">Password</label> 
+                                        <input id="pass" type="password" name="password" class="input" data-type="password" placeholder="Enter your password"> 
+                                    </div>
+
+                                    <div class="group"> 
+                                        <input id="check" type="checkbox" class="check" checked> <label for="check">
+                                            <span class="icon"></span> Keep me Signed in</label> 
+                                    </div>
+
+                                    <div class="group"> 
+                                        <button type="submit" name="login" class="btn btn-primary btn-user btn-block">Login</button> 
+                                    </div>
+
+                                    <div class="hr"></div>
+                                    <div class="foot text-center"> <a href="#">Forgot Password?</a> </div>
+                                </form>
+                
+=======
                             <form action="" method="POST" class="user">
                                 <div class="group"> 
                                     <label for="user" class="label">Username</label> 
@@ -86,95 +117,96 @@
                                 </span>
                             </div>
 
+>>>>>>> 4fd727baf874207cff1257c2e351ee4379a2f34e:login.php
                             </div>  
                         </div> 
                     </div>
                 </div>
-                    
-                <?php 
-                    if(isset($_POST['login'])){
-
-                        $username = mysqli_real_escape_string($db,$_POST['username']);
-                        $password = mysqli_real_escape_string($db,$_POST['password']);
-
-                        //$password = md5($password);
-
-                        $count = 0;
-                        $result = mysqli_query($db, "SELECT * FROM user WHERE User_Namee='$username' AND User_Password='$password' AND  User_Type='ADMIN'  ");
-                        
-                        $count = mysqli_num_rows($result);  
-
-                        $countStatus = 0;
-                        $resultStatus = mysqli_query($db, "SELECT User_Status, User_Image, User_Type FROM user WHERE User_Namee='$username' AND User_Password='$password' ");
-                        $countStatus = mysqli_num_rows($resultStatus); 
-                        $row = mysqli_fetch_assoc($resultStatus);
-                            
-                        if ($count==0)  {	
-                            ?> 
-                            <div class= "alert alert-danger alert-dismissible fade show " id= "alertmsg" >   
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <h3><strong>Error:</strong> Invalid Username Or Password.  </h3>
-                            </div>	 
-                            <?php
-                        }
-                        elseif ($row['User_Status'] == "ACCEPTED") { 
-
-                            $_SESSION["username"]=$username;  
-                            $_SESSION["usertype"]=$row['User_Type'];  
-                            $_SESSION["status"]="Accepted"; 
-                            $_SESSION["image"]= $row['User_Image'] ; 
-
-                            $itemployee = "IT EMPLOYEE"; 
-                            
-                            if($row['User_Type'] == "IT EMPLOYEE" ){ 
-                                $_SESSION["itemployee"] = $itemployee;  
-                            }   
-                            ?> 
-                            <div class= "alert alert-success" id= "alertmsg" >  
-                                    <h1>Hi <?php  echo $_SESSION['username']; ?> Welcome Back <i class="far fa-smile"></i></h1>
-                                </div> 
-                            <?php
-                            header("Refresh:5; url= displayuser.php" ); 
-                            
-
-                        }
-                        elseif ($row['User_Status'] == "PENDING") { 
-                            $_SESSION["username"]=$username;
-                            $_SESSION["status"]="Pending";    
-                            $_SESSION["image"]= $row['User_Image'] ;  
-                            ?>
-                            <div class= "alert alert-warning alert-dismissible fade show " id= "alertmsg" >   
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <h3><strong>Sorry:</strong>your account is not approved</h3> 
-                            </div> 
-                            <?php
-                        } 
-                        elseif($row['User_Status'] == "REJECTED") { 
-                            $_SESSION["username"]= $username;  
-                            $_SESSION["status"]= "Rejected";  
-                            $_SESSION["image"]= $row['User_Image'] ; 
-                            ?> 
-                            <div class= "alert alert-danger alert-dismissible fade show " id= "alertmsg" >   
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <h3><strong>Error:</strong> Your ACCOUNT HAS Been REJECTED!! </h3> 
-                            </div>	 
-                            <?php
-                        } 
-                        else{ 
-                            ?>
-                            <div class= "alert alert-danger alert-dismissible fade show " id= "alertmsg" >   
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <h3><strong>Error:</strong> UNKNOWN ERROR HAS OCCURRED PLEASE TRY AGAIN.  </h3>
-                            </div> 
-                            <?php  
-                        }		
-                    }
-                ?>
-
-            </div> 
-        </div>
+            </div>
+        </div> 
     </div>   
- 
+  
+    <div class="col-md-5 mx-auto"> 
+        <?php 
+            if(isset($_POST['login'])){
+
+                $username = mysqli_real_escape_string($db,$_POST['username']);
+                $password = mysqli_real_escape_string($db,$_POST['password']);
+
+                //$password = md5($password);
+
+                $count = 0;
+                $result = mysqli_query($db, "SELECT * FROM user WHERE User_Namee='$username' AND User_Password='$password' AND  User_Type='ADMIN'  ");
+                
+                $count = mysqli_num_rows($result);  
+
+                $countStatus = 0;
+                $resultStatus = mysqli_query($db, "SELECT User_Status, User_Image, User_Type FROM user WHERE User_Namee='$username' AND User_Password='$password' ");
+                $countStatus = mysqli_num_rows($resultStatus); 
+                $row = mysqli_fetch_assoc($resultStatus);
+                    
+                if ($count==0)  {	
+                    ?> 
+                    <div class= "alert alert-danger alert-dismissible fade show " id= "alertmsg" >   
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <h3><strong>Error:</strong> Invalid Username Or Password.  </h3>
+                    </div>	 
+                    <?php
+                }
+                elseif ($row['User_Status'] == "ACCEPTED") { 
+
+                    $_SESSION["username"]=$username;  
+                    $_SESSION["usertype"]=$row['User_Type'];  
+                    $_SESSION["status"]="Accepted"; 
+                    $_SESSION["image"]= $row['User_Image'] ; 
+
+                    $itemployee = "IT EMPLOYEE"; 
+                    
+                    if($row['User_Type'] == "IT EMPLOYEE" ){ 
+                        $_SESSION["itemployee"] = $itemployee;  
+                    }   
+                    ?> 
+                    <div class= "alert alert-success" id= "alertmsg" >  
+                            <h1>Hi <?php  echo $_SESSION['username']; ?> Welcome Back <i class="far fa-smile"></i></h1>
+                        </div> 
+                    <?php
+                    header("Refresh:5; url= displayuser.php" ); 
+                    
+
+                }
+                elseif ($row['User_Status'] == "PENDING") { 
+                    $_SESSION["username"]=$username;
+                    $_SESSION["status"]="Pending";    
+                    $_SESSION["image"]= $row['User_Image'] ;  
+                    ?>
+                    <div class= "alert alert-warning alert-dismissible fade show " id= "alertmsg" >   
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <h3><strong>Sorry:</strong>your account is not approved</h3> 
+                    </div> 
+                    <?php
+                } 
+                elseif($row['User_Status'] == "REJECTED") { 
+                    $_SESSION["username"]= $username;  
+                    $_SESSION["status"]= "Rejected";  
+                    $_SESSION["image"]= $row['User_Image'] ; 
+                    ?> 
+                    <div class= "alert alert-danger alert-dismissible fade show " id= "alertmsg" >   
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <h3><strong>Error:</strong> Your ACCOUNT HAS Been REJECTED!! </h3> 
+                    </div>	 
+                    <?php
+                } 
+                else{ 
+                    ?>
+                    <div class= "alert alert-danger alert-dismissible fade show " id= "alertmsg" >   
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <h3><strong>Error:</strong> UNKNOWN ERROR HAS OCCURRED PLEASE TRY AGAIN.  </h3>
+                    </div> 
+                    <?php  
+                }		
+            }
+        ?>
+    </div>
 
     </div>
             <!-- Footer --> 
