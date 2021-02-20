@@ -48,8 +48,8 @@
 
                         $res5 = mysqli_query($db, "SELECT * FROM maintenancerequest WHERE Ticket_Number ='$_POST[ticketnumber]' " );
                         while($row5 = mysqli_fetch_array($res5)){
-                            $firstname = $row5["First_Name"];
-                            $lastname = $row5["Last_Name"];
+                            //$firstname = $row5["First_Name"];
+                            //$lastname = $row5["Last_Name"];
                             $username = $row5["User_Namee"]; 
                             $woreda = $row5["Woreda"]; 
                             $assignedto = $row5["Assigned_To"]; 

@@ -310,7 +310,7 @@
                             
                             <div class="card-body ">
                                 <img  id="preview" src="<?php echo $row["User_Image"]; ?>" class="user-avatar large-avatar rounded-circle mx-auto mt-n7 mb-4" alt="<?php echo $row["First_Name"]; ?>">
-                                <h4 class="h3"><?php echo $row["First_Name"].' '.$row["First_Name"]; ?></h4>
+                                <h4 class="h3"><?php echo $row["First_Name"].' '.$row["Middle_Name"]; ?></h4>
                                 <h5 class="font-weight-normal"><?php echo $row["Department"]; ?></h5>
                                 <p class="text-gray mb-4">Woreda <?php echo $row["Woreda"]; ?></p>
                             </div>

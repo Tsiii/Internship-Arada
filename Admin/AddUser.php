@@ -4,6 +4,38 @@
     include("sidemenu.php"); 
     include("top.php"); 
 ?> 
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+
+    <!-- Custom fonts for this template -->
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+ 
+
+</head>
+
+<style>
+
+.file-field input[type="file"] {
+        max-width: 230px;
+        position: absolute;
+        cursor: pointer; 
+        opacity: 0;
+        padding-bottom: 30px;
+    } 
+    .file {
+        visibility: hidden;
+        position: absolute;
+    }
+</style>
     <!-- Begin Page Content -->
     <div class="container-fluid">  
         <div class="col-sm-9 col-md-7 col-lg-6 col-xl-8" style="margin: 0 auto;">  
@@ -17,7 +49,7 @@
                 </div>
                 
                 <div class="card-body">  
-                    <form name="form1" action="" method="post" enctype="multipart/form-data"  style="margin:0 auto; text-align:center;  margin-bottom:15px">
+                    <form name="form1" action="" method="post" enctype="multipart/form-data"  style="margin:0 auto; text-align:center;  margin-bottom:15px">    
                         <table class="table table-bordered" >
                             <tr>
                                 <td><input type="text"  class="form-control" name="firstname"  placeholder="First Name" required=""/></td>
@@ -33,10 +65,21 @@
                             </tr>  
                             <tr>
                                 <td><input type="password"  class="form-control" placeholder="Password" name="password" required=""/></td>
-                            </tr>
-                            <tr>
-                                <td><input type="text"  class="form-control" placeholder="Department" name="department" required=""/></td>
                             </tr> 
+                            <tr>
+                                <td> 
+                                    <select class="form-control" id="sel0" name="department" required="">
+                                        <option >Select Department</option>
+                                        <?php
+                                        $res = mysqli_query($db, "SELECT Departments FROM department ");
+                                        while ($row=mysqli_fetch_array($res)) {
+                                            echo "<option  name='assignto' > ";
+                                            echo $row["Departments"];
+                                            echo "</option>";
+                                        } ?> 
+                                    </select>
+                                </td>
+                            </tr>  
                             <tr>
                                 <td> 
                                     <select class="form-control" id="sel1" name="woreda" required="">
@@ -65,10 +108,15 @@
                                     </select>  
                                 </td>
                             </tr> 
-                            <tr> 
-                                <td>user image<input type="file"  name="file1"  required=""/></td>
+                            <tr class="clearfix"> 
+                                <td class="float-left"> 
+                                    <i class="float-left pr-2 pl-2 ">user image </i><img class="rounded float-left mr-2 fas fa-question-circle" height="50px" width="50px" src="../Images/demouser.png" id="preview" required=""/> 
+                                    <input type="file" style="opacity: 0; position:absolute; max-width:100px; overflow:hidden"  name="file1"  required=""/>
+                                    <input type="text" style="cursor: pointer;" disabled placeholder="Upload Photo" id="file">  
+                                </td> 
                             </tr> 
-                        </table>  
+                        </table> 
+                         
                         
                         <input align="center" type="submit" style=" text-align: center;"  name="submit1" class="btn btn-primary " value="Insert User details" />
                         
@@ -145,6 +193,27 @@
         </div>  
     </div>  
 
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+ 
+<script>
+    $(document).on("click", ".browse", function() {
+        var file = $(this).parents().find(".file");
+        file.trigger("click");
+        });
+        $('input[type="file"]').change(function(e) {
+        var fileName =  'Upload again  ' + e.target.files[0].name ;
+        $("#file").val(fileName);
+
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            // get loaded data and render thumbnail.
+            document.getElementById("preview").src = e.target.result; 
+        };
+        // read the image file as a data URL.
+        reader.readAsDataURL(this.files[0]);
+    });
+</script>
 <?php 
     include('footer.php');
 ?> 

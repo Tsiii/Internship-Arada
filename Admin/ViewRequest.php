@@ -26,7 +26,7 @@
 
             <?php
             if(isset($_POST['submit1'])){
-                $result= mysqli_query($db, "SELECT Ticket_Number FROM maintenancerequest WHERE Ticket_Number ='$_POST[ticketnumber]'AND User_Namee = '$_SESSION[username]' ");
+                $result= mysqli_query($db, "SELECT Ticket_Number FROM maintenancerequest WHERE Ticket_Number ='$_POST[ticketnumber]'  ");
 
                 $resultCheck = mysqli_num_rows($result);
                 $row5 = mysqli_fetch_array($result); 

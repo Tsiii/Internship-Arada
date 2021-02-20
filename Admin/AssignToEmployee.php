@@ -123,7 +123,7 @@
                                             <select name="assignto" class="form-control selectpicker">
                                                 <option >Select IT EMPLOYEE</option>
                                                 <?php
-                                                $res = mysqli_query($db, "SELECT User_Namee FROM user WHERE User_Type= 'IT EMPLOYEE' ");
+                                                $res = mysqli_query($db, "SELECT * FROM user WHERE User_Type= 'IT EMPLOYEE' ");
                                                 while($row=mysqli_fetch_array($res)){
                                                     echo "<option  name='assignto' > ";
                                                     echo $row["User_Namee"];

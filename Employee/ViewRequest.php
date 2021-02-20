@@ -50,9 +50,7 @@
                 <?php 
 
                 $res5 = mysqli_query($db, "SELECT * FROM maintenancerequest WHERE Ticket_Number ='$_POST[ticketnumber]' " );
-                while($row5 = mysqli_fetch_array($res5)){
-                    $firstname = $row5["First_Name"];
-                    $lastname = $row5["Last_Name"];
+                while($row5 = mysqli_fetch_array($res5)){ 
                     $username = $row5["User_Namee"]; 
                     $woreda = $row5["Woreda"]; 
                     $assignedto = $row5["Assigned_To"]; 
@@ -60,6 +58,7 @@
                     $ticketnumber = $row5["Ticket_Number"];
                     $_SESSION["ticketnumber"]=$ticketnumber;
                     $_SESSION["username"]=$username; 
+                    $inprogresscomment = $row5["Inprogress_Comment"]; 
                 } 
                 ?> 
 
@@ -94,7 +93,7 @@
                                     if($requeststatus == "INPROGRESS"){?>
                                         
                                         <tr>
-                                            <td>Comment From Technician<input type="text"  value="<?php echo $inprogresscomment; ?>" class="form-control" name="inprogresscomment"  placeholder="inprogresscomment" required=""disabled/></td>
+                                            <td>Comment From Technician<input type="text"  value="<?php echo $inprogresscomment; ?>" class="form-control" name="inprogresscomment"  placeholder="Inprogress Comment" disabled/></td>
                                         </tr><?php
                                     }
                                     ?>

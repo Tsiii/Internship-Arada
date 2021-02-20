@@ -113,11 +113,12 @@
                                 echo"</table>"; 
                         }
                         else{
-                            echo "You Don't Have Maintained Request ";
+                            echo "<div class='m-3'>You Haven't Maintained a Request Yet. </div>";
                         }
                     } 
                     ?>
                     
+                </div>
                 </div>
             </div> 
         </div>      

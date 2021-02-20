@@ -76,8 +76,7 @@
                     <i class="fas fa-check-circle"></i><span>  Maintained Requests</span>
                 </a>  
             </li>
-   
-
+    
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -97,7 +96,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
                         <a class="collapse-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>  
-                        <a class="collapse-item" href="password.htmlphp">Forgot Password</a>
+                        <a class="collapse-item" href="forgotpassword.php">Forgot Password</a>
                         <div class="collapse-divider"></div>
                     </div>
                 </div>

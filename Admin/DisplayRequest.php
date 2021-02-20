@@ -70,13 +70,13 @@
                                         <td> <?php echo $row["Request_Description"]; ?> </td> 
                                         <td> <?php echo $row["Request_Status"]; ?> </td> 
                                         <td>  
-                                            <select name="assignto" class="form-control selectpicker"> 
+                                            <select name="assignto" class="form-control selectpicker px-1" style="min-width: 100px;"> 
                                                 <?php
                                                 $res = mysqli_query($db, "SELECT User_Namee FROM user WHERE User_Type= 'IT EMPLOYEE' ");
                                                 while($row2=mysqli_fetch_array($res)){
                                                     ?>
                                                     <option  name='assignto'> 
-                                                        <?php echo $row2["User_Namee"]; ?>
+                                                        <?php echo $row2["User_Namee"].' '.'('.$row2["First_Name"].')'; ?>
                                                     </option>  
                                                     <?php
                                                 }  
@@ -84,7 +84,7 @@
                                             </select> 
                                         </td>  
                                         <td> <?php echo $row["Requested_Date"]; ?></td> 
-                                        <td> <a href='delete_request.php?id=<?php echo $row["id"]?>'>Delete Request</a> </td>  
+                                        <td> <a  class="btn btn-danger" href='delete_request.php?id=<?php echo $row["id"]?>'>Delete </a> </td>  
                                     
                                         <td><input type="submit" name="submit2" class="btn btn-primary" value="Save"> </td>  
                                     </tr> 

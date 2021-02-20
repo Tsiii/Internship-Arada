@@ -44,7 +44,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="maintenancerequest.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -102,7 +102,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
                         <a class="collapse-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>  
-                        <a class="collapse-item" href="password.htmlphp">Forgot Password</a>
+                        <a class="collapse-item" href="forgetpassword.php">Forgot Password</a>
                         <div class="collapse-divider"></div>
                     </div>
                 </div>
