@@ -10,7 +10,7 @@
             <?php
         }
     }  
-    include("../includes/server.php");  
+    include("includes/server.php");  
 
 ?> 
 

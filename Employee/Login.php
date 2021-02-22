@@ -94,7 +94,7 @@
                                 echo '<div class= "alert alert-success id= "alertmsg" >  
                                         <h1>Hi ' . $_SESSION['username'].' Welcome Back <i class="far fa-smile"></i></h1>
                                     </div>	';   
-                                header("Refresh:5; url=Profile.php" ); 
+                                header("Refresh:5; url=ViewRequest.php" ); 
 
                             }
                             elseif ($row['User_Status'] == "PENDING") { 
