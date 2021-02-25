@@ -1,9 +1,4 @@
-<?php   
-    include("include/security.php");   
-   
-    include("include/sidemenu.php"); 
-    include("include/top.php"); 
-?> 
+ 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +19,14 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables2/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables2/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/login.css" rel="stylesheet">
 </head>  
 <style>
     input,.form-control{
@@ -36,7 +39,7 @@
 </style>
 
 <body style="margin-top: 25px; 
-    background: url(../Images/forlogin.jpg) no-repeat center center fixed;">  
+    background: url(Images/forlogin.jpg) no-repeat center center fixed;">  
     <div class="mb-4 mb-lg-0 col-md-5  border rounded border-light p-4 card " style="background-color: #ffffff2e; color:#00ffd0;; margin:25px 75px!important;">
         <h1 class="text-center text-md-center mb-0 h3">Create an account</h1> 
         <form action="#" class="mb-4 mb-lg-0 col-md-10 "style="margin: 0 auto;">
@@ -166,7 +169,7 @@
                 <div class="form-check mb-4">
                     <input class="form-check-input" type="checkbox" value="" id="terms" required="">
                     <label class="form-check-label" for="terms">
-                        I agree to the <a href="#">terms and conditions</a>
+                        I agree to the terms and conditions</a>
                     </label>
                 </div>
             </div>
@@ -180,7 +183,7 @@
         <div class="d-flex justify-content-center align-items-center mt-4">
             <span class="font-weight-normal">
                 Already have an account?
-                <a href="./login.php" class="font-weight-bold">Login here</a>
+                <a href="./login.php" id="logcol" class="font-weight-bold">Login here</a>
             </span>
         </div>
     </div>  
@@ -243,6 +246,57 @@
     }  
     ?> 
     
-<?php      
-    include("admin/footer.php");  
-?>   
+<!-- Footer --> 
+<footer class="sticky-footer bg-white ">
+                
+                <a class="d-flex justify-content-center"> 
+                   <div class="mx-3"> Copyright &copy; Arada Subcity 2021 </div>
+                </a>  
+                  
+            </footer>
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+ 
+</body>
+
+</html>

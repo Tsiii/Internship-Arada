@@ -16,9 +16,9 @@ body .tab {
     width: 100%; 
     margin: auto;
     max-width: 525px;
-    min-height: 560px;
+    min-height: 520px;
     position: relative;
-    background: url(../Images/backgroundlogin.jpg) no-repeat center;
+    /*background: url(../Images/backgroundlogin.jpg) no-repeat center;*/
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);    
     border: 1px solid #e3e6f0;
     border-radius: .50rem;
@@ -125,8 +125,7 @@ body .tab {
 }
   
 .login-space .group .input,:focus{ 
-    border: none;
-    padding: 15px 20px;
+    border: none; 
     border-radius: 25px;
     background: rgba(255, 255, 255, .1); 
 }
@@ -138,7 +137,7 @@ body .tab {
 
 .login-space .group .input:hover {
     border: 2px solid #a74e3263;
-    box-shadow: none;
+    /*box-shadow: none;*/
 }
 :focus{
     
@@ -152,6 +151,13 @@ a:hover {
     color: #b30202;
     text-decoration: none;
     -webkit-text-stroke-width: medium;
+}
+#logcol:hover{
+    -webkit-text-stroke-width: thin;
+    color: #6bffb5;
+}
+#logcol:focus{ 
+    background: none;
 }
 .hr {
     height: 2px;

@@ -5,7 +5,21 @@
         if(isset($_SESSION['username']) && $_SESSION['usertype'] == "ADMIN" ) {
             ?>
             <script type="text/javascript">
-                window.location="index.php";
+                window.location="admin/index.php";
+            </script> 
+            <?php
+        }
+        if(isset($_SESSION['username']) && $_SESSION['usertype'] == "EMPLOYEE" ) {
+            ?>
+            <script type="text/javascript">
+                window.location="employee/index.php";
+            </script> 
+            <?php
+        }
+        if(isset($_SESSION['username']) && $_SESSION['usertype'] == "ITEMPLOYEE" ) {
+            ?>
+            <script type="text/javascript">
+                window.location="itemployee/index.php";
             </script> 
             <?php
         }
@@ -31,16 +45,14 @@
 
     <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="vendor/datatables2/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+ 
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
 
 </head>
 
-  
+
+<body> 
 <!-- IT Empl oyee Report Column -->
 <div class="col-lg-12 mb-4" >  
     <div class="row">
@@ -97,7 +109,7 @@
                 //$password = md5($password);
 
                 $count = 0;
-                $result = mysqli_query($db, "SELECT * FROM user WHERE User_Namee='$username' AND User_Password='$password' AND  User_Type='ADMIN'  ");
+                $result = mysqli_query($db, "SELECT * FROM user WHERE User_Namee='$username' AND User_Password='$password'  ");
                 
                 $count = mysqli_num_rows($result);  
 
@@ -121,18 +133,39 @@
                     $_SESSION["status"]="Accepted"; 
                     $_SESSION["image"]= $row['User_Image'] ; 
 
-                    $itemployee = "IT EMPLOYEE"; 
+                    $admin = "ADMIN";
+                    $employee = "EMPLOYEE";
+                    $itemployee = "IT EMPLOYEE";
                     
+                    
+                    if($row['User_Type'] == "ADMIN" ){ 
+                        $_SESSION["admin"] = $admin;   
+                        ?> 
+                        <div class= "alert alert-success" id= "alertmsg" >  
+                                <h1>Hi <?php  echo $_SESSION['username']; ?> Welcome Back <i class="far fa-smile"></i></h1>
+                            </div> 
+                        <?php
+                        header("Refresh:5; url= admin/index.php" ); 
+                    }  
+                    if($row['User_Type'] == "EMPLOYEE" ){ 
+                        $_SESSION["employee"] = $employee;  
+                        ?> 
+                        <div class= "alert alert-success" id= "alertmsg" >  
+                                <h1>Hi <?php  echo $_SESSION['username']; ?> Welcome Back <i class="far fa-smile"></i></h1>
+                            </div> 
+                        <?php
+                        header("Refresh:5; url= employee/maintenanceRequest.php" ); 
+                    }  
                     if($row['User_Type'] == "IT EMPLOYEE" ){ 
                         $_SESSION["itemployee"] = $itemployee;  
-                    }   
-                    ?> 
-                    <div class= "alert alert-success" id= "alertmsg" >  
-                            <h1>Hi <?php  echo $_SESSION['username']; ?> Welcome Back <i class="far fa-smile"></i></h1>
-                        </div> 
-                    <?php
-                    header("Refresh:5; url= displayuser.php" ); 
-                    
+                     
+                        ?> 
+                        <div class= "alert alert-success" id= "alertmsg" >  
+                                <h1>Hi <?php  echo $_SESSION['username']; ?> Welcome Back <i class="far fa-smile"></i></h1>
+                            </div> 
+                        <?php
+                        header("Refresh:5; url= itemployee/DisplayRequest.php" ); 
+                    }  
 
                 }
                 elseif ($row['User_Status'] == "PENDING") { 
@@ -170,9 +203,9 @@
     </div>
 
     </div>
-            <!-- Footer --> 
-
-            <footer class="sticky-footer bg-white fixed-bottom">
+               
+<!-- Footer --> 
+<footer class="sticky-footer bg-white ">
                 
                 <a class="d-flex justify-content-center"> 
                    <div class="mx-3"> Copyright &copy; Arada Subcity 2021 </div>
@@ -213,22 +246,15 @@
         </div>
     </div>  
     <!-- Bootstrap core JavaScript-->
-    <script src="../vendor/jquery/jquery.min.js"></script>
-    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="../js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="../vendor/datatables2/jquery.dataTables.min.js"></script>
-    <script src="../vendor/datatables2/dataTables.bootstrap4.min.js"></script>
-     
-    <!-- Page level custom scripts -->
-    <script src="../js/demo/datatables-demo.js"></script>
-
+    <script src="js/sb-admin-2.min.js"></script>
+ 
 </body>
 
 </html>

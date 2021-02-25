@@ -1,6 +1,9 @@
 <?php       
     include("security.php");  
     include("sidemenu.php"); 
+    
+    mysqli_query($db,"UPDATE maintenancerequest SET Notification_E = 'Seen'  WHERE User_Namee= '$_SESSION[username]'  ");
+
     include("top.php"); 
 ?>
 <style>

@@ -48,66 +48,15 @@
                         </div>
                     </form>
                 </div>
-            </li>
-
-            <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell fa-fw"></i>
-                    <!-- Counter - Alerts -->
-                    <span class="badge badge-danger badge-counter">3+</span>
-                </a>
-                <!-- Dropdown - Alerts -->
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                    aria-labelledby="alertsDropdown">
-                    <h6 class="dropdown-header">
-                        Alerts Center
-                    </h6>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-primary">
-                                <i class="fas fa-file-alt text-white"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">December 12, 2019</div>
-                            <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-success">
-                                <i class="fas fa-donate text-white"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">December 7, 2019</div>
-                            $290.29 has been deposited into your account!
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-warning">
-                                <i class="fas fa-exclamation-triangle text-white"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">December 2, 2019</div>
-                            Spending Alert: We've noticed unusually high spending for your account.
-                        </div>
-                    </a>
-                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                </div>
-            </li>
-
+            </li> 
+            
             <!-- Nav Item - Messages -->
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-envelope fa-fw"></i>
                     <!-- Counter - Messages -->
-                    <span class="badge badge-danger badge-counter">7</span>
+                    <span class="badge badge-danger badge-counter">2</span>
                 </a>
                 <!-- Dropdown - Messages -->
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -139,30 +88,6 @@
                             <div class="small text-gray-500">Jae Chun · 1d</div>
                         </div>
                     </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                alt="">
-                            <div class="status-indicator bg-warning"></div>
-                        </div>
-                        <div>
-                            <div class="text-truncate">Last month's report looks great, I am very happy with
-                                the progress so far, keep up the good work!</div>
-                            <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                alt="">
-                            <div class="status-indicator bg-success"></div>
-                        </div>
-                        <div>
-                            <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                told me that people say this to all dogs, even if they aren't good...</div>
-                            <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                        </div>
-                    </a>
                     <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                 </div>
             </li> 
@@ -172,8 +97,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-globe fa-fw"></i>
-                    <!-- Counter - Order -->
-                    <span class="badge badge-danger badge-counter"><?php echo $requests;?></span>
+                     
                 </a>
 
                 <?php 
@@ -184,7 +108,11 @@
  
                     $result1 = mysqli_query($db,"SELECT * FROM maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee AND maintenancerequest.User_Namee= '$requesterss[User_Namee]' AND  Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' ");
                     $req =mysqli_fetch_array($result1);  
-                    ?>  
+                    ?>
+                    
+                    <!-- Counter - Order -->
+                    <span class="badge badge-success badge-counter"><?php echo $requests;?></span> 
+
                     <!-- Dropdown - Order -->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="messagesDropdown">
@@ -192,7 +120,7 @@
                             Order Center
                         </h6>
                         <?php
-                        $data= mysqli_query($db,"SELECT * FROM  maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee AND  Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' LIMIT 3   ");
+                        $data= mysqli_query($db,"SELECT * FROM  maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee AND  Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' Status = 'Not Seen' LIMIT 3   ");
      
                         while ($info = mysqli_fetch_array($res) && $infos = mysqli_fetch_array($data)) { 
  
@@ -249,6 +177,8 @@
                 } 
                 else{
                     ?>
+                    <!-- Counter - Order -->
+                    <span class="badge badge-counter"></span>
                     <!-- Dropdown - Order -->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="messagesDropdown">
@@ -295,155 +225,4 @@
         </ul>
 
     </nav>                            
-    <?php 
-
-    /* 
-        <!-- Topbar Search
-        <form
-            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                    aria-label="Search" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
-            </div>
-        </form> -->
-
-        
-
-        /*
-            while($row= mysqli_fetch_array($results)) {
-                echo $row['item'];
-                echo $row['movie']; 
-                    ?>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="<?php echo $row2["User_Image"]; ?>"
-                                alt="user image">
-                            <div class="status-indicator bg-success"></div>
-                        </div>
-                        <div class="font-weight-bold">
-                            <div class="text-truncate">Hi there! <?php echo $requesterss["Request_Description"]; ?>  </div>
-                            <div class="small text-gray-500"><?php echo $requesterss["User_Namee"]; ?> · 58m</div>
-                        </div>
-                    </a> 
-                    <?php  
-            }  
-
-            while($row= mysqli_fetch_array($results)) {
-                echo $row['User_Namee']; 
-                ?>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="<?php echo $row2["User_Image"]; ?>"
-                            alt="user image">
-                        <div class="status-indicator bg-success"></div>
-                    </div>
-                    <div class="font-weight-bold">
-                        <div class="text-truncate">Hi there! <?php echo $requesterss["Request_Description"]; ?>  </div>
-                        <div class="small text-gray-500"><?php echo $requesterss["User_Namee"]; ?> · 58m</div>
-                    </div>
-                </a> 
-                <?php  
-            }  
-
-        $requestersss= mysqli_query($db,"SELECT User_Image FROM user WHERE User_Namee = '$requesterss[User_Namee]' ");
-        $requesterImage =mysqli_fetch_array($requestersss); 
-            
-        $results = mysqli_query($db,"SELECT User_Image.user, Request_Description.maintenancerequest, User_Namee.maintenancerequest FROM (SELECT * FROM user  ) user, (SELECT * FROM maintenancerequest ) maintenancerequest ");
-        $row= mysqli_fetch_array($results);
-        echo $row['username'];
-            
-        $resultss = mysqli_query($db, "SELECT User_Namee FROM maintenancerequest, user WHERE User_Namee = $requesterss[User_Namee]  ");
-        $row= mysqli_fetch_array($resultss);
-        echo $row['User_Namee'];
-    */
-
-         
-    /*
-        $infos = mysqli_fetch_array($res) ;
-
-        echo  $infos["Requested_Date"].'<br>';
-
-        $first_date = new DateTime("2012-11-30 17:03:30");
-        $second_date = new DateTime("2012-12-21 00:00:00");
-        $difference = $first_date->diff($second_date);
-        //echo '<br>' .$difference. '<br>';
-
-        $date1 =  $infos["Requested_Date"];
-        $date2 = date('Y-m-d H:i:s');
-        $interval = $date1->diff($date2);
-        echo "difference " . $interval->y . " years, " . $interval->m." months, ".$interval->d." days "; 
-
-        // shows the total amount of days (not divided into years, months and days like above)
-        echo "difference " . $interval->days . " days ";
-        */
-        //echo date('Y-m-d H:i:s') - date('Y-m-d H:i:s', strtotime($infos["Requested_Date"])) . '<br>';
-
-    /*
-
-    $mytime = date("Y-m-d", strtotime($infos["Requested_Date"])).'<br>';
-  
-    $time = $infos["Requested_Date"]; 
-
-    function get_time_ago( $time ){
-        $time_difference = time() - $time;
-
-        if( $time_difference < 1 ) {
-            return 'less than 1 second ago'; 
-        }
-        $condition = array( 12 * 30 * 24 * 60 * 60 =>  'year',
-                            30 * 24 * 60 * 60      =>  'month',
-                            24 * 60 * 60           =>  'day',
-                            60 * 60                =>  'hour',
-                            60                     =>  'minute',
-                            1                      =>  'second'
-        );
-
-        foreach( $condition as $secs => $str ) {
-            $d = $time_difference / $secs;
-
-            if( $d >= 1 )
-            {
-                $t = round( $d );
-                return 'about ' . $t . ' ' . $str . ( $t > 1 ? 's' : '' ) . ' ago';
-            }
-        }
-    } 
-
-    echo "---".'<br>'; 
-
-    echo get_time_ago( strtotime($infos["Requested_Date"]) );
-    */
-
-
-                            /*
-                                $mytime = date("Y-m-d", strtotime($info["Requested_Date"])).'<br>'; 
-                                $time = $req["Requested_Date"];  
-                            
-                                    $time_difference = time() - $info["Requested_Date"];
-                            
-                                    if( $time_difference < 1 ) {
-                                        return 'less than 1 second ago'; 
-                                    }
-                                    $condition = array( 12 * 30 * 24 * 60 * 60 =>  'year',
-                                                        30 * 24 * 60 * 60      =>  'month',
-                                                        24 * 60 * 60           =>  'day',
-                                                        60 * 60                =>  'hour',
-                                                        60                     =>  'minute',
-                                                        1                      =>  'second' ); 
-                                    foreach( $condition as $secs => $str ) {
-                                        $d = $time_difference / $secs;
-                            
-                                        if( $d >= 1 )
-                                        {
-                                            $t = round( $d );
-                                            return ' ' . $t . ' ' . $str . ( $t > 1 ? 's' : '' ) . ' ago';
-                                        }
-                                    }   
-                                echo strtotime($info["Requested_Date"]) ; 
-                            */ 
-?>
+    
