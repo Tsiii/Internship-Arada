@@ -2,8 +2,8 @@
     include("../includes/server.php");  
             
     $notifications=0;
-    $res= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To ='All' AND Request_Status !='MAINTAINED' ");
-    $notifications =mysqli_num_rows($res);   
+    $notification= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To ='All' AND Request_Status !='MAINTAINED' ");
+    $notifications1 =mysqli_num_rows($notification);   
 
     $requests=0;
     $res= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' ");
@@ -49,47 +49,100 @@
                     </form>
                 </div>
             </li> 
-            
+             
+
             <!-- Nav Item - Messages -->
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-envelope fa-fw"></i>
-                    <!-- Counter - Messages -->
-                    <span class="badge badge-danger badge-counter">2</span>
+                    <i class="fas fa-file-download fa-fw"></i>
+                    <!-- Counter - Messages fas fa-envelope -->
+                    <span class="badge badge-danger badge-counter"><?php echo $notifications;?></span>
                 </a>
-                <!-- Dropdown - Messages -->
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                    aria-labelledby="messagesDropdown">
-                    <h6 class="dropdown-header">
-                        Message Center
-                    </h6>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                alt="">
-                            <div class="status-indicator bg-success"></div>
-                        </div>
-                        <div class="font-weight-bold">
-                            <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                problem I've been having.</div>
-                            <div class="small text-gray-500">Emily Fowler · 58m</div>
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                alt="">
-                            <div class="status-indicator"></div>
-                        </div>
-                        <div>
-                            <div class="text-truncate">I have the photos that you ordered last month, how
-                                would you like them sent to you?</div>
-                            <div class="small text-gray-500">Jae Chun · 1d</div>
-                        </div>
-                    </a>
-                    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                </div>
+                
+                <?php 
+                if ($notifications1 == 0) { ?> 
+
+                    <!-- Dropdown - Messages -->
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="messagesDropdown">
+                        <h6 class="dropdown-header">
+                            Message Centercddf
+                        </h6>
+                        <?php
+                            $newrequests = mysqli_fetch_array($notification); 
+
+                            // Perform a query, check for error
+                             $note = mysqli_query($db,"SELECT * FROM  maintenancerequest WHERE Request_Status = 'PENDING' AND  Notification_E = 'Not_Seen'  ");
+                            
+                                while ($infos = mysqli_fetch_array($note)) {?>
+                                
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image mr-3"> 
+                                            <img class="rounded-circle" src="<?php echo $infos["User_Image"]; ?>" alt=" ">
+                                         </div>
+                                        <div class="font-weight-bold">
+                                            <div class="text-truncate">New <?php echo $infos["Services"]; ?> Request </div>
+                                            <div class="small text-gray-500">From <?php echo $infos["User_Namee"]; ?> · 58m</div>
+                                        </div>
+                                    </a> 
+                                    <?php
+                                }    
+                                                                
+                                echo '<a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>';
+ 
+
+                            /*
+                                while ( $infos = mysqli_fetch_array($data)) { 
+                                    ?>
+                                
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image mr-3">
+                                            <img class="rounded-circle" src="<?php echo $infos["User_Image"]; ?>"
+                                                alt="hfg">
+                                            <div class="status-indicator bg-success"></div>
+                                        </div>
+                                        <div class="font-weight-bold">
+                                            <div class="text-truncate">Hi there! <?php echo $infos["Request_Description"]; ?></div>
+                                            <div class="small text-gray-500">Emily Fowler · 58m</div>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                        <div class="dropdown-list-image mr-3">
+                                            <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                                                alt="">
+                                            <div class="status-indicator"></div>
+                                        </div>
+                                        <div>
+                                            <div class="text-truncate">I have the photos that you ordered last month, how
+                                                would you like them sent to you?</div>
+                                            <div class="small text-gray-500">Jae Chun · 1d</div>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                                    <?php
+                                }
+                            */ ?>
+                    </div>
+                    <?php
+                }
+                else{?>
+                
+                    <!-- Dropdown - Messages -->
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="messagesDropdown">
+                        <h6 class="dropdown-header">
+                            Message Center
+                        </h6>
+                        <a class="dropdown-item d-flex align-items-center" > 
+                            <div class="font-weight-bold text-center"> 
+                                <div class=" text-gray-900">No New Request That is Not Assigned.</div>
+                            </div>
+                        </a> 
+                        <a class="dropdown-item text-center small text-gray-500" href="#">View More Messages</a>
+                    </div>
+                    <?php
+                }?>
             </li> 
 
             <!-- Nav Item - Order -->
@@ -120,7 +173,7 @@
                             Order Center
                         </h6>
                         <?php
-                        $data= mysqli_query($db,"SELECT * FROM  maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee AND  Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' Status = 'Not Seen' LIMIT 3   ");
+                        $data= mysqli_query($db,"SELECT * FROM  maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee AND  Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED'  LIMIT 3   ");
      
                         while ($info = mysqli_fetch_array($res) && $infos = mysqli_fetch_array($data)) { 
  

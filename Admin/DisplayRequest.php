@@ -72,12 +72,12 @@
                                         <td>  
                                             <select name="assignto" class="form-control selectpicker px-1" style="min-width: 100px;"> 
                                                 <?php
-                                                $res = mysqli_query($db, "SELECT User_Namee FROM user WHERE User_Type= 'IT EMPLOYEE' ");
+                                                $res = mysqli_query($db, "SELECT User_Namee, First_Name FROM user WHERE User_Type= 'IT EMPLOYEE' ");
                                                 while($row2=mysqli_fetch_array($res)){
                                                     ?>
                                                     <option  name='assignto'> 
                                                         <?php echo $row2["User_Namee"].' '.'('.$row2["First_Name"].')'; ?>
-                                                    </option>  
+                                                    </option>
                                                     <?php
                                                 }  
                                                 ?>
@@ -171,14 +171,9 @@
             } 
         }  
         
-        else{   
-            $res = mysqli_query($db,"SELECT * FROM maintenancerequest ");
-            $row=mysqli_fetch_array($res);
-        
-            $res2 = mysqli_query($db,"SELECT User_Image FROM user WHERE User_Namee= '$row[User_Namee]' LIMIT 5");
-            $row2=mysqli_fetch_array($res2);
-
-            $data= mysqli_query($db,"SELECT * FROM  maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee   ");
+        else{    
+         
+            $data1 = mysqli_query($db,"SELECT * FROM  maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee ");
             ?>
 
             <!-- DataTales Example -->
@@ -209,30 +204,30 @@
                             <tbody> 
                                 <tr>
                                 <?php 
-                                while ($row = mysqli_fetch_array($data)) { 
+                                while ($rowd = mysqli_fetch_array($data1)) { 
                                     
                                     $position=5;  
-                                    $readPercent= $row["Request_Description"];
+                                    $readPercent= $rowd["Request_Description"];
                                     $reqDesShort = substr($readPercent, 0, $position); 
                                     ?>   
                                     
-                                    <td><img class="rounded-circle" src="<?php echo $row["User_Image"]; ?>"  alt="" height= "100" width="100"> </td>
-                                    <td><?php echo $row["Ticket_Number"]; ?> </td>
-                                    <td><?php echo $row["User_Namee"]; ?> </td>
-                                    <td><?php echo $row["Woreda"]; ?> </td>
-                                    <td><?php echo $row["Services"]; ?> </td>
-                                    <td><?php echo $row["Computer_Type"]; ?> </td>
+                                    <td><img class="rounded-circle" src="<?php echo $rowd["User_Image"]; ?>"  alt="" height= "100" width="100"> </td>
+                                    <td><?php echo $rowd["Ticket_Number"]; ?> </td>
+                                    <td><?php echo $rowd["User_Namee"]; ?> </td>
+                                    <td><?php echo $rowd["Woreda"]; ?> </td>
+                                    <td><?php echo $rowd["Services"]; ?> </td>
+                                    <td><?php echo $rowd["Computer_Type"]; ?> </td>
                                     <td><?php echo $reqDesShort; ?> </td>
-                                    <td><?php echo $row["Request_Status"]; ?> </td>
-                                    <td><?php echo $row["Assigned_To"]; ?> </td>
-                                    <td><?php echo $row["Requested_Date"]; ?> </td>  
+                                    <td><?php echo $rowd["Request_Status"]; ?> </td>
+                                    <td><?php echo $rowd["Assigned_To"]; ?> </td>
+                                    <td><?php echo $rowd["Requested_Date"]; ?> </td>  
                                          
                                     <td>
-                                        <a class=" btn btn-warning btn-circle" style="margin-left: 15px; margin-right: 25px;" href='EditRequest.php?ticketnumber=<?php echo $row["Ticket_Number"]?>'> 
+                                        <a class=" btn btn-warning btn-circle" style="margin-left: 15px; margin-right: 25px;" href='EditRequest.php?ticketnumber=<?php echo $rowd["Ticket_Number"]?>'> 
                                             <i class="fas fa-edit"></i>
                                         </a> </td>  
                                     <td> 
-                                        <a class=" btn btn-danger btn-circle" style="margin-left: 15px; margin-right: 25px;" href='DeleteRequest.php?ticketnumber=<?php echo $row["Ticket_Number"]?>'>
+                                        <a class=" btn btn-danger btn-circle" style="margin-left: 15px; margin-right: 25px;" href='DeleteRequest.php?ticketnumber=<?php echo $rowd["Ticket_Number"]?>'>
                                             <i class="fas fa-trash"></i>
                                         </a>  
                                     </td>
