@@ -1,9 +1,9 @@
 <?php 
     include("../includes/server.php");  
             
-    $notifications=0;
-    $notification= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To ='All' AND Request_Status !='MAINTAINED' ");
-    $notifications1 =mysqli_num_rows($notification);   
+    $notifications =0;
+    $notification = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Notification_A = 'Not_Seen' AND Request_Status ='PENDING' OR Assigned_To ='All' ");
+    $notifications =mysqli_num_rows($notification);   
 
     $requests=0;
     $res= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' ");
@@ -55,13 +55,14 @@
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-file-download fa-fw"></i>
-                    <!-- Counter - Messages fas fa-envelope -->
-                    <span class="badge badge-danger badge-counter"><?php echo $notifications;?></span>
-                </a>
                 
                 <?php 
-                if ($notifications1 == 0) { ?> 
+                if ($notifications > 0) { ?> 
+                
+                    <i class="fas fa-file-download fa-fw"></i>
+                        <!-- Counter - Messages fas fa-envelope -->
+                        <span class="badge badge-danger badge-counter"><?php echo $notifications;?></span>
+                    </a>
 
                     <!-- Dropdown - Messages -->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -73,11 +74,11 @@
                             $newrequests = mysqli_fetch_array($notification); 
 
                             // Perform a query, check for error
-                             $note = mysqli_query($db,"SELECT * FROM  maintenancerequest WHERE Request_Status = 'PENDING' AND  Notification_E = 'Not_Seen'  ");
+                             $note = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Request_Status = 'PENDING' AND  Notification_A = 'Not_Seen'  ");
                             
                                 while ($infos = mysqli_fetch_array($note)) {?>
                                 
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <a class="dropdown-item d-flex align-items-center" href="DisplayRequest.php" onclick="<?php mysqli_query($db, "UPDATE maintenancerequest SET Notification_A = 'Seen' WHERE Services = '$infos[Services]' "); ?>">
                                         <div class="dropdown-list-image mr-3"> 
                                             <img class="rounded-circle" src="<?php echo $infos["User_Image"]; ?>" alt=" ">
                                          </div>
@@ -128,6 +129,8 @@
                 }
                 else{?>
                 
+                        <i class="fas fa-file-download fa-fw"></i> 
+                    </a>
                     <!-- Dropdown - Messages -->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="messagesDropdown">

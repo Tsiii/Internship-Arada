@@ -40,16 +40,16 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Services">News</a></li> 
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#News">Services</a></li> 
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#About">About</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Team">Team</a></li> 
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#news">News</a></li> 
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li> 
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li> 
                     </ul>
                 </div>
             </div>
         </nav> 
-
-
+ 
+        
         <!-- Masthead-->
         <header class="masthead">
             <div class="container">
@@ -221,6 +221,17 @@
             </div> 
         </section>  
 
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Arada Subcity 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+
         <!-- Bootstrap core JS-->
         <script src="../js/jquery.min.js"></script>
         <script src="../js/bootstrap.bundle.min.js"></script>
@@ -231,5 +242,6 @@
         <script src="../assets/mail/contact_me.js"></script>
         <!-- Core theme JS-->
         <script src="../js/scripts.js"></script>
+
     </body>
 </html>

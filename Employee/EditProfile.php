@@ -19,16 +19,16 @@
     <title>Edit Profile</title>
 
     <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Custom styles for this page -->
-    <link href="vendor/datatables2/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="../vendor/datatables2/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 <style>
@@ -308,11 +308,12 @@
                                 style="background-image: url(&quot;../images/yeka.jpg&quot;); background-size: cover; background-repeat:   no-repeat; background-position: center center;">
                             </div>
                             
-                            <div class="card-body ">
-                                <img  id="preview" src="<?php echo $row["User_Image"]; ?>" class="user-avatar large-avatar rounded-circle mx-auto mt-n7 mb-4" alt="<?php echo $row["First_Name"]; ?>">
+                            <div class="card-body"  style="padding-top: 50px;">
+                                <img  id="preview" src="<?php echo $row["User_Image"]; ?>" class="user-avatar large-avatar rounded-circle 
+                                    mx-auto mt-n7 mb-4" alt="<?php echo $row["First_Name"]; ?>" style="width: 100px; height: 200px;" >
                                 <h4 class="h3"><?php echo $row["First_Name"].' '.$row["Middle_Name"]; ?></h4>
                                 <h5 class="font-weight-normal"><?php echo $row["Department"]; ?></h5>
-                                <p class="text-gray mb-4">Woreda <?php echo $row["Woreda"]; ?></p>
+                                <p class="text-gray ">Woreda <?php echo $row["Woreda"]; ?></p>
                             </div>
                         </div> 
                     </div>
@@ -330,22 +331,25 @@
                                 </div>
                                 <div class="file-field">
                                     <div class="d-flex justify-content-xl-center ml-xl-3">
-                                        <div class="d-flex">
-                                            <span class="icon icon-md"><span class="fas fa-paperclip mr-3"></span></span> 
+                                        <div class="d-flex"> 
+                                            <div class="d-flex">
+                                                <span class="icon icon-md"> 
+                                                    <form action='' method='POST' enctype="multipart/form-data" >   
+                                                        <input class="inputfile" type="file" name="fileToUpload" accept="image"> 
+                                                        <span class="fas fa-paperclip mr-3"> </span>
+                                                </span> 
+                                            </div> 
                                             
-                                            <form action='' method='POST' enctype="multipart/form-data" > 
-                                                <div class="d-md-block text-left">
-                                                    <input name="fileToUpload" type="file">    
-                                                    <input class="inputfile" type="file" name="fileToUpload" accept="image">
-                                                
-                                                    <div class="font-weight-normal text-dark mb-1">Choose Image</div>
-                                                    <div class="text-gray small">JPG, JPEG or PNG.  </div>
+                                            <div class="d-md-block text-left">
+                                                <div class="font-weight-normal text-dark mb-1">Choose Image</div>
+                                                <div class="text-gray small">JPG, JPEG or PNG.  </div>
                                                     
-                                                    <div class="input-group my-3">
-                                                        <input type="text" class="form-control" disabled placeholder="Upload File" id="file"> 
-                                                    </div>
-                                                    <input type="submit" name="submitImage" class="form-control btn btn-sm btn-primary" value="Update Picture" >
+                                                <div class="input-group my-3">
+                                                    <input type="text" class="form-control" disabled placeholder="Upload File" id="file"> 
                                                 </div>
+                                                <input type="submit" name="submitImage" class="form-control btn btn-sm btn-primary" value="Update Picture" >
+                                            </div>
+
                                             </form> 
                                         </div>
                                             <?php  
@@ -418,8 +422,7 @@
              </div>
     </div>
   
- 
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
  

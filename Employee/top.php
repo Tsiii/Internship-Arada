@@ -1,6 +1,9 @@
 <?php 
     include("../includes/server.php");   
   
+    $notifications =0;
+    $notification = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Notification_E = 'Not_Seen' ");
+    $notifications =mysqli_num_rows($notification);   
  
     $requests=0;
     $res= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE User_Namee ='$_SESSION[username]' AND Request_Status !='PENDING' AND Notification_E ='Not_Seen'   ");
@@ -46,83 +49,72 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Alerts -->
-            <?php 
-                $res= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE User_Namee ='$_SESSION[username]' AND Request_Status !='MAINTAINED' AND Request_Status !='PENDING' AND Notification_E ='Not_Seen'  ");
-                $notifications =mysqli_num_rows($res); 
-            ?>
+            
+            <!-- Nav Item - new added Messages -->
             <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell fa-fw"></i>
-                    <!-- Counter - Alerts -->
-                    <span class="badge badge-danger badge-counter"><?php echo $notifications; ?></span>
-                </a>
                 
-                <?php   
-                if($notifications > 0 ){  
-                    $result1 = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE User_Namee= '$_SESSION[username]' AND Request_Status !='PENDING' LIMIT 3 ");
-                    $req =mysqli_fetch_array($result1); 
-                    $req2 =mysqli_num_rows($result1); 
-                    ?>
-                    <!-- Dropdown - Alerts -->
+                <?php 
+                if ($notifications > 0) { ?> 
+                
+                    <i class="fas fa-file-download fa-fw"></i>
+                        <!-- Counter - Messages fas fa-envelope -->
+                        <span class="badge badge-danger badge-counter"><?php echo $notifications;?></span>
+                    </a>
+
+                    <!-- Dropdown - Messages -->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                        aria-labelledby="alertsDropdown">
+                        aria-labelledby="messagesDropdown">
                         <h6 class="dropdown-header">
-                            Alerts Center
+                            Message Center 
                         </h6>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <div class="mr-3">
-                                <div class="icon-circle bg-primary">
-                                    <i class="fas fa-file-alt text-white"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="small text-gray-500">December 12, 2019</div>
-                                <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                        <?php
+                            $newrequests = mysqli_fetch_array($notification); 
+
+                            // Perform a query, check for error
+                             $note = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Notification_E = 'Not_Seen'  ");
+                            
+                                while ($infos = mysqli_fetch_array($notification)) {?>
+                                
+                                    <a class="dropdown-item d-flex align-items-center" href="DisplayRequest.php" onclick="<?php mysqli_query($db, "UPDATE maintenancerequest SET Notification_E = 'Seen' WHERE Services = '$infos[Services]' "); ?>">
+                                        <div class="dropdown-list-image mr-3"> 
+                                            <img class="rounded-circle" src="<?php echo $infos["User_Image"]; ?>" alt=" ">
+                                         </div>
+                                        <div class="font-weight-bold">
+                                            <div class="text-truncate">New <?php echo $infos["Services"]; ?> Request </div>
+                                            <div class="small text-gray-500">From <?php echo $infos["User_Namee"]; ?> · 58m</div>
+                                        </div>
+                                    </a> 
+                                    <?php
+                                }    
+                                                                
+                                echo '<a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>';
+                                ?>
+                    </div>
+                    <?php
+                }
+                else{?>
+                
+                        <i class="fas fa-file-download fa-fw"></i> 
+                    </a>
+                    <!-- Dropdown - Messages -->
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="messagesDropdown">
+                        <h6 class="dropdown-header">
+                            Message Center
+                        </h6>
+                        <a class="dropdown-item d-flex align-items-center" > 
+                            <div class="font-weight-bold text-center"> 
+                                <div class=" text-gray-900">No New Message About request.</div>
                             </div>
                         </a> 
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <div class="mr-3">
-                                <div class="icon-circle bg-warning">
-                                    <i class="fas fa-exclamation-triangle text-white"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="small text-gray-500">December 2, 2019</div>
-                                Spending Alert: We've noticed unusually high spending for your account.
-                            </div>
-                        </a>
-                        <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                        <a class="dropdown-item text-center small text-gray-500" href="#">View More Messages</a>
                     </div>
+                    <?php
+                }?>
+            </li> 
 
-                    <?php
-                }
-                else{
-                    ?>
-                
-                    <!-- Dropdown - Alerts -->
-                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                        aria-labelledby="alertsDropdown">
-                        <h6 class="dropdown-header">
-                            Alerts Center
-                        </h6>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <div class="mr-3">
-                                <div class="icon-circle bg-primary">
-                                    <i class="fas fa-file-alt text-white"></i>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="small text-gray-500">December 12, 2019</div>
-                                <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                            </div>
-                        </a>   
-                    </div>
-                    <?php
-                }
-                ?>
-            </li>
 
             <!-- Nav Item - Messages --> 
             <?php
@@ -137,7 +129,7 @@
                     
                     <?php 
                     if($requests < 1 ){
-                        echo '<span class="badge badge-success badge-counter"><?php echo $requests ?></span>';
+                        echo '<span class="badge badge-success badge-counter">'. $requests .'</span>';
                     }
                     ?>
                 </a>
