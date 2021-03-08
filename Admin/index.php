@@ -46,7 +46,7 @@ while ($row1=mysqli_fetch_array($result)) {
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="window.print()"><i
                 class="fas fa-download fa-sm text-white-50"> 
-            </i> Generate Report
+            </i> Print
         </a>
     </div>
 

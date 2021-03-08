@@ -1,20 +1,42 @@
 <?php 
-    include("../includes/server.php");  
-            
-    $notifications=0;
-    $res= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To ='All' AND Request_Status !='MAINTAINED' ");
-    $notifications =mysqli_num_rows($res);   
+    include("../includes/server.php");   
 
-    $requests=0;
-    $res= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' ");
-    $requests =mysqli_num_rows($res); 
-    
-    if($requests > 0 ){
-        $requester= mysqli_query($db,"SELECT User_Namee FROM maintenancerequest WHERE Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' ");
-        $requesters =mysqli_fetch_array($requester);  
+    $notifications = 0; 
+    $notification = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To = '$_SESSION[username]' AND Request_Status = 'PENDING' OR Assigned_To = 'All' AND Notification_IT NOT LIKE '%$_SESSION[username]%'  ");
+    $notifications = mysqli_num_rows($notification); 
+  
+    $requests = 0;
+    $request = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To ='$_SESSION[username]' AND Request_Status = 'PENDING' ");
+    $requests = mysqli_num_rows($request); 
+     
+?> 
+<style>
+    .btn-link {
+        width: 100%;
+        border: none;
+        outline: none;
+        background: none;
+        cursor: pointer; 
+        padding: 1.1px;
+        text-decoration: none;
+        font-family: inherit;
+        font-size: inherit;
+
+        
+        border-right: none #e3e6f0;  
+        border-bottom: none #e3e6f0;
+        border-left: none #e3e6f0;
     }
-
-?>
+    .btn-link:focus,
+    .btn-link:hover,button:focus {
+        outline: none; 
+        text-decoration: none; 
+    }/*  .topbar .dropdown-list .dropdown-item {  
+    border-right: none #e3e6f0;  
+        border-bottom: none #e3e6f0;
+        border-left: none #e3e6f0;
+    }  */
+</style>
     <!-- Topbar -->
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -49,146 +71,154 @@
                     </form>
                 </div>
             </li>
-
-            <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell fa-fw"></i>
-                    <!-- Counter - Alerts -->
-                    <span class="badge badge-danger badge-counter">3+</span>
-                </a>
-                <!-- Dropdown - Alerts -->
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                    aria-labelledby="alertsDropdown">
-                    <h6 class="dropdown-header">
-                        Alerts Center
-                    </h6>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-primary">
-                                <i class="fas fa-file-alt text-white"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">December 12, 2019</div>
-                            <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-success">
-                                <i class="fas fa-donate text-white"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">December 7, 2019</div>
-                            $290.29 has been deposited into your account!
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-warning">
-                                <i class="fas fa-exclamation-triangle text-white"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">December 2, 2019</div>
-                            Spending Alert: We've noticed unusually high spending for your account.
-                        </div>
-                    </a>
-                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                </div>
-            </li>
-
+            
+             
             <!-- Nav Item - Messages -->
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-envelope fa-fw"></i>
-                    <!-- Counter - Messages -->
-                    <span class="badge badge-danger badge-counter">7</span>
-                </a>
-                <!-- Dropdown - Messages -->
-                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                    aria-labelledby="messagesDropdown">
-                    <h6 class="dropdown-header">
-                        Message Center
-                    </h6>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                alt="">
-                            <div class="status-indicator bg-success"></div>
-                        </div>
-                        <div class="font-weight-bold">
-                            <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                problem I've been having.</div>
-                            <div class="small text-gray-500">Emily Fowler · 58m</div>
-                        </div>
+                
+                <?php 
+                if ($notifications > 0) { ?> 
+                
+                    <i class="fas fa-bell fa-fw"></i>
+                        <!-- Counter - Messages fas fa-envelope -->
+                        <span class="badge badge-danger badge-counter"><?php echo $notifications;?></span>
                     </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                alt="">
-                            <div class="status-indicator"></div>
-                        </div>
-                        <div>
-                            <div class="text-truncate">I have the photos that you ordered last month, how
-                                would you like them sent to you?</div>
-                            <div class="small text-gray-500">Jae Chun · 1d</div>
-                        </div>
+
+                    <!-- Dropdown - Messages -->
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="messagesDropdown">
+                        <h6 class="dropdown-header">
+                            Message Center 
+                        </h6>
+ 
+                        <style>
+                            .btn-link {
+                                border: none;
+                                outline: none;
+                                background: none;
+                                cursor: pointer; 
+                                padding: 1.1px;
+                                text-decoration: none;
+                                font-family: inherit;
+                                font-size: inherit;
+
+                                
+                                border-right: none #e3e6f0;  
+                                border-bottom: none #e3e6f0;
+                                border-left: none #e3e6f0;
+                            }
+                            .btn-link:focus,
+                            .btn-link:hover,button:focus {
+                                outline: none; 
+                                text-decoration: none; 
+                            }/*  .topbar .dropdown-list .dropdown-item {  
+                               border-right: none #e3e6f0;  
+                                border-bottom: none #e3e6f0;
+                                border-left: none #e3e6f0;
+                            }  */
+                        </style>
+                        
+                        <?php
+                            $newrequests = mysqli_fetch_array($notification); 
+
+                            // Perform a query, check for error 
+                            $note = mysqli_query($db,"SELECT * FROM maintenancerequest,user WHERE Assigned_To ='$_SESSION[username]' AND Request_Status = 'PENDING' OR Assigned_To = 'All' AND Notification_IT NOT LIKE '%$_SESSION[username]%' AND maintenancerequest.User_Namee = user.User_Namee limit 3 ");
+  
+                                while ($infos = mysqli_fetch_array($note)) {?>
+                                   
+                                    <form action="./includes/NotificationSeen.php" method="post">
+                                        <input type="text" name="ticketnumber" id="ticketnumber" value="<?php echo $infos['Ticket_Number'] ?>" hidden>
+                                        <button type="submit" name='seenN' class=" btn-link " >
+                                            <a class="dropdown-item d-flex align-items-center" href="DisplayRequest.php" >
+                                        
+                                                <div class="dropdown-list-image mr-3"> 
+                                                    <img class="rounded-circle" src="<?php echo $infos["User_Image"]; ?>" alt=" ">
+                                                </div>                        
+        
+                                                <div class="font-weight-bold" <?php echo $infos['Ticket_Number'];?>>
+                                                    <div class="text-truncate">New <?php echo $infos["Services"]; ?> Request </div>
+                                                    <div class="small text-gray-500">From <?php echo $infos["User_Namee"]; ?> <span class="text-warning ml-1"> 
+                                                    <?php
+                                                        $date=date("Y-m-d H:i:s");
+                
+                                                        $date1=date_create($infos["Requested_Date"]);
+                                                        $date2=date_create($date);
+                                                        $diff=date_diff($date1, $date2);
+                                                        
+                                                        
+                                                        if ($diff->format(" %a days Ago") > 365) {
+                                                            echo $diff->format(" %Y Year Ago");
+                                                        } elseif ($diff->format(" %a days Ago") > 29 && $diff->format(" %a days Ago") <= 365) {
+                                                            echo $diff->format(" %m Month Ago");
+                                                        } elseif ($diff->format(" %a Days Ago") < 29 && $diff->format(" %a Days Ago") > 0) {
+                                                            echo $diff->format(" %a Days Ago");
+                                                        } elseif ($diff->format(" %a Days Ago") == 0 && $diff->format(" %H hour Ago") > 0 && $diff->format(" %H hour Ago") < 24) {
+                                                            echo $diff->format(" %H Hour Ago");
+                                                        } elseif ($diff->format(" %a days Ago") == 0 && $diff->format(" %H hour Ago") < 1 && $diff->format(" %i Minute Ago") <= 60) {
+                                                            echo $diff->format(" %i Minute Ago");
+                                                        } else {
+                                                            // %a outputs the total number of days
+                                                            echo $diff->format(" %a Day  Ago");
+                                                        }
+                                                    ?> </span>
+                                                    
+                                                    </div>
+                                                </div>
+                                            </a> 
+                                        </button>
+                                   </form>
+                                    <?php  
+                                }    
+                                                                
+                                echo '<a class="dropdown-item text-center small text-gray-500" href="#">a Read More Messages</a>';
+                                ?>
+                    </div>
+                    <?php
+                }
+                else{?>
+                
+                        <i class="fas fa-bell fa-fw"></i> 
                     </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                alt="">
-                            <div class="status-indicator bg-warning"></div>
-                        </div>
-                        <div>
-                            <div class="text-truncate">Last month's report looks great, I am very happy with
-                                the progress so far, keep up the good work!</div>
-                            <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                        </div>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                alt="">
-                            <div class="status-indicator bg-success"></div>
-                        </div>
-                        <div>
-                            <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                                told me that people say this to all dogs, even if they aren't good...</div>
-                            <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                        </div>
-                    </a>
-                    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                </div>
+                    <!-- Dropdown - Messages -->
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        aria-labelledby="messagesDropdown">
+                        <h6 class="dropdown-header">
+                            Message Center
+                        </h6>
+                        <a class="dropdown-item d-flex align-items-center" > 
+                            <div class="font-weight-bold text-center"> 
+                                <div class=" text-gray-900">No New Request That is Not Assigned.</div>
+                            </div>
+                        </a> 
+                        <a class="dropdown-item text-center small text-gray-500" href="#">View More Messages</a>
+                    </div>
+                    <?php
+                }?>
             </li> 
 
+            
             <!-- Nav Item - Order -->
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-globe fa-fw"></i>
-                    <!-- Counter - Order --> 
-                    <?php 
-                    if ($requests < 1) {
-                        echo '<span class="badge badge-danger badge-counter"><?php echo $requests;?></span> ';
-                    }
-                    ?>
-                </a>
-
+                    <i class="fas fa-envelope fa-fw"></i>
+                     
                 <?php 
                 if($requests > 0 ){
 
                     $requester= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' ");
                     $requesterss =mysqli_fetch_array($requester);  
  
-                    $result1 = mysqli_query($db,"SELECT * FROM maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee AND maintenancerequest.User_Namee= '$requesterss[User_Namee]' AND  Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' ");
+                    $result1 = mysqli_query($db,"SELECT * FROM maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee AND maintenancerequest.User_Namee= '$requesterss[User_Namee]' ");
                     $req =mysqli_fetch_array($result1);  
-                    ?>  
+                    ?>
+                    
+                        <!-- Counter - Order
+                        <span class="badge badge-success badge-counter"><?php// echo $requests;?></span>  -->
+                    </a>
+
                     <!-- Dropdown - Order -->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="messagesDropdown">
@@ -196,9 +226,9 @@
                             Order Center
                         </h6>
                         <?php
-                        $data= mysqli_query($db,"SELECT * FROM  maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee AND  Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' LIMIT 3   ");
+                        $data= mysqli_query($db,"SELECT * FROM  maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee AND Assigned_To ='$_SESSION[username]' AND Request_Status = 'PENDING' AND Notification_IT = 'Not_Seen' LIMIT 3   ");
      
-                        while ($info = mysqli_fetch_array($res) && $infos = mysqli_fetch_array($data)) { 
+                        while ($infos = mysqli_fetch_array($data)) { 
  
                             ?>  
                             <a class="dropdown-item d-flex align-items-center" href="#">
@@ -218,15 +248,15 @@
                                         $date1=date_create($infos["Requested_Date"]);
                                         $date2=date_create($date);
                                         $diff=date_diff($date1,$date2);
-                                          
-                                        echo "<br>";
+                                         
                                         /*if ($diff->format(" %i Minute Ago") <= 60  ) {
                                             echo $diff->format(" %i Minute Ago");
                                         }
                                         if ($diff->format(" %H hour Ago") > 0 && $diff->format(" %H hour Ago") < 24 ) {
                                             echo $diff->format(" %H Hour Ago");
                                         }
-                                        else*/if ($diff->format(" %a Days Ago") < 29) {
+                                        else*/
+                                        if ($diff->format(" %a Days Ago") < 29) {
                                             echo $diff->format(" %a Days Ago");
                                         }
                                         elseif ($diff->format(" %a days Ago") > 29 && $diff->format(" %a days Ago") <= 365) {
@@ -253,22 +283,25 @@
                 } 
                 else{
                     ?>
+                    <!-- Counter - Order -->
+                    <span class="badge badge-counter"></span>
+                    </a>
                     <!-- Dropdown - Order -->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="messagesDropdown">
                         <h6 class="dropdown-header">
                             Order Center
                         </h6>
-                        <a class="dropdown-item d-flex align-items-center" href="#"> 
-                            <div class="font-weight-bold">
-                                <div class="text-truncate text-center">You Don't Have Any Orders Yet.</div> 
-                            </div>
+                        <a class="dropdown-item d-flex align-items-center font-weight-bold text-truncate text-center" href="#"> 
+                             You Don't Have New Orders . 
+                          
                         </a>
                     </div>
                     <?php
                 }
                 ?>
             </li> 
+  
             
             <div class="topbar-divider d-none d-sm-block"></div>
 

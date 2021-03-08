@@ -49,11 +49,15 @@
                     <tbody>
                         <tr> 
                         <?php
-                        while ($row=mysqli_fetch_array($res)) {
+                        while ($row=mysqli_fetch_array($res)) { 
+
+                            $position = 15;  
+                            $readPercent= $row["Request_Description"];
+                            $reqDesShort = substr($readPercent, 0, $position); 
                             ?>  
                             <td> <?php echo $row["Ticket_Number"]; ?></td>    
                             <td> <?php echo $row["Woreda"]; ?></td> 
-                            <td> <?php echo $row["Request_Description"]; ?> </td> 
+                            <td> <?php echo $reqDesShort; ?> </td> 
                             <td> <?php echo $row["Request_Status"]; ?> </td> 
                             <td> <?php echo $row["Assigned_To"]; ?> </td> 
                             <td> <?php echo $row["Requested_Date"]; ?> </td>

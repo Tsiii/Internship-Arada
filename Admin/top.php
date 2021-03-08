@@ -73,8 +73,8 @@
                         <?php
                             $newrequests = mysqli_fetch_array($notification); 
 
-                            // Perform a query, check for error
-                             $note = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Request_Status = 'PENDING' AND  Notification_A = 'Not_Seen'  ");
+                            // Perform a query, check for error   
+                            $note = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Request_Status = 'PENDING' AND  Notification_A = 'Not_Seen' OR Assigned_To ='All'  ");
                             
                                 while ($infos = mysqli_fetch_array($note)) {?>
                                 
@@ -152,8 +152,7 @@
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-globe fa-fw"></i>
-                     
+                    <i class="fa fa-globe fa-fw"></i> 
                 </a>
 
                 <?php 

@@ -1,19 +1,13 @@
 <?php 
     include("../includes/server.php");   
-  
-    $notifications =0;
-    $notification = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Notification_E = 'Not_Seen' ");
-    $notifications =mysqli_num_rows($notification);   
+   
+    $notification = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE User_Namee ='$_SESSION[username]' AND Request_Status = 'ACCEPTED' AND Notification_E = 'Not_Seen' ");
+    $notifications = mysqli_num_rows($notification);   
  
-    $requests=0;
-    $res= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE User_Namee ='$_SESSION[username]' AND Request_Status !='PENDING' AND Notification_E ='Not_Seen'   ");
-    $requests =mysqli_num_rows($res); 
-    
-    if($requests > 0 ){
-        $requester= mysqli_query($db,"SELECT User_Namee FROM maintenancerequest WHERE Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' LIMIT 2 ");
-        $requesters =mysqli_fetch_array($requester);  
-    } 
-?>
+    $message = mysqli_query($db, "SELECT * FROM maintenancerequest WHERE User_Namee='$_SESSION[username]' AND Request_Status != 'PENDING' AND Request_Status != 'ACCEPTED' AND Notification_E = 'Not_Seen' ");
+    $messages = mysqli_num_rows($message);
+   
+?> 
     <!-- Topbar -->
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -48,55 +42,150 @@
                     </form>
                 </div>
             </li>
+ 
 
-            
-            <!-- Nav Item - new added Messages -->
+
+            <!-- Nav Item - new added Messages  Like When request is Accepted-->
             <li class="nav-item dropdown no-arrow mx-1">
+
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 
+                    <i class="fas fa-envelope fa-fw"></i> 
                 <?php 
-                if ($notifications > 0) { ?> 
-                
-                    <i class="fas fa-file-download fa-fw"></i>
+                if ($notifications > 0) { ?>  
+
                         <!-- Counter - Messages fas fa-envelope -->
-                        <span class="badge badge-danger badge-counter"><?php echo $notifications;?></span>
+                        <span class="badge badge-warning badge-counter"><?php echo $notifications;?></span>
                     </a>
 
                     <!-- Dropdown - Messages -->
-                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                        aria-labelledby="messagesDropdown">
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
                         <h6 class="dropdown-header">
                             Message Center 
                         </h6>
+                        <style>
+                            .btn-link {
+                                width: 100%;
+                                border: none;
+                                outline: none;
+                                background: none;
+                                cursor: pointer; 
+                                padding: 1.1px;
+                                text-decoration: none;
+                                font-family: inherit;
+                                font-size: inherit;
+
+                                
+                                border-right: none #e3e6f0;  
+                                border-bottom: none #e3e6f0;
+                                border-left: none #e3e6f0;
+                            }
+                            .btn-link:focus,
+                            .btn-link:hover,button:focus {
+                                outline: none; 
+                                text-decoration: none; 
+                            }/*  .topbar .dropdown-list .dropdown-item {  
+                               border-right: none #e3e6f0;  
+                                border-bottom: none #e3e6f0;
+                                border-left: none #e3e6f0;
+                            }  */
+                        </style>
+                        
+
                         <?php
                             $newrequests = mysqli_fetch_array($notification); 
 
-                            // Perform a query, check for error
-                             $note = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Notification_E = 'Not_Seen'  ");
+                            // Perform a query, check for error  
+                            $note =  mysqli_query($db, "SELECT * FROM maintenancerequest WHERE User_Namee='$_SESSION[username]' AND Request_Status = 'ACCEPTED' AND Notification_E = 'Not_Seen' limit 3");
                             
-                                while ($infos = mysqli_fetch_array($notification)) {?>
-                                
-                                    <a class="dropdown-item d-flex align-items-center" href="DisplayRequest.php" onclick="<?php mysqli_query($db, "UPDATE maintenancerequest SET Notification_E = 'Seen' WHERE Services = '$infos[Services]' "); ?>">
-                                        <div class="dropdown-list-image mr-3"> 
-                                            <img class="rounded-circle" src="<?php echo $infos["User_Image"]; ?>" alt=" ">
-                                         </div>
-                                        <div class="font-weight-bold">
-                                            <div class="text-truncate">New <?php echo $infos["Services"]; ?> Request </div>
-                                            <div class="small text-gray-500">From <?php echo $infos["User_Namee"]; ?> · 58m</div>
-                                        </div>
-                                    </a> 
-                                    <?php
-                                }    
-                                                                
-                                echo '<a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>';
-                                ?>
+                            $note1 =  mysqli_query($db, "SELECT * FROM maintenancerequest WHERE User_Namee='$_SESSION[username]' AND Request_Status != 'PENDING' AND Notification_E = 'Not_Seen' limit 3");
+                            $info  = mysqli_fetch_array($note1); ?>  
+                            
+                            <i class="text-success"> Good News </i> 
+                            
+                            <style>
+                                .btn-link {
+                                    border: none;
+                                    outline: none;
+                                    background: none;
+                                    cursor: pointer; 
+                                    padding: 1.1px;
+                                    text-decoration: none;
+                                    font-family: inherit;
+                                    font-size: inherit;
+                                }
+                                .btn-link:focus,
+                                .btn-link:hover,button:focus {
+                                    outline: none; 
+                                    text-decoration: none; 
+                                } 
+                            </style>
+                            
+                            <?php 
+                            while ($info2 = mysqli_fetch_array( $note)) {
+                                if ($info2['Request_Status'] == "ACCEPTED") {?> 
+                                    
+                                    <form action="./includes/NotificationSeen.php" method="post">
+                                    <input type="text" name="ticketnumber" id="ticketnumber" value="<?php echo $info2['Ticket_Number'] ?>" hidden>
+                                        <button type="submit" name='seenN' class=" btn-link " >
+                                            <a class="dropdown-item d-flex align-items-center">
+                                                <div class="dropdown-list-image mr-3"> 
+                                                    <div class="rounded-circle "> 
+                                                        <i class="btn-circle btn-success fas fa-check"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div class="font-weight-bold">
+                                                    <div class="text-truncate"><?php echo $info2['Ticket_Number'] ?> Has been <?php echo $info2['Request_Status'] ?>
+                                                        </div>
+                                                    <div class="small text-gray-500" >By <?php echo $info2['Assigned_To'] ?> <span class="text-warning ml-1"> 
+                                                        <?php
+                                                        $date=date("Y-m-d H:i:s");
+                
+                                                        $date1=date_create($info2["Assigned_Date"]);
+                                                        $date2=date_create($date);
+                                                        $diff=date_diff($date1, $date2);
+                                                        
+                                                        
+                                                        if ($diff->format(" %a days Ago") > 365) {
+                                                            echo $diff->format(" %Y Year Ago");
+                                                        } elseif ($diff->format(" %a days Ago") > 29 && $diff->format(" %a days Ago") <= 365) {
+                                                            echo  '<span class="text-danger "> '.$diff->format(" %m Month Ago").'</span';
+                                                        } elseif ($diff->format(" %a Days Ago") < 29 && $diff->format(" %a Days Ago") > 0) {
+                                                            echo $diff->format(" %a Days Ago");
+                                                        } elseif ($diff->format(" %a Days Ago") == 0 && $diff->format(" %H hour Ago") > 0 && $diff->format(" %H hour Ago") < 24) {
+                                                            echo $diff->format(" %H Hour Ago");
+                                                        } elseif ($diff->format(" %a days Ago") == 0 && $diff->format(" %H hour Ago") < 1 && $diff->format(" %i Minute Ago") <= 60) {
+                                                            echo $diff->format(" %i Minute Ago");
+                                                        } else {
+                                                            // %a outputs the total number of days
+                                                            echo $diff->format(" %a Day  Ago");
+                                                        }
+                                                        ?> </span>
+
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </button>
+                                    </form>
+                                    <?php 
+                                }
+                            } 
+
+                            if ($notifications > 3) {
+                                echo '<a class="dropdown-item text-center small text-gray-500" href="DisplayRequest.php">Read More Messages</a>';
+                            }
+                            elseif ($notifications < 33 && $notifications > 0) {
+                                // %a outputs the total number of days
+                                echo '<a class="dropdown-item text-center small text-gray-500" href="Notification.php">View All Messages</a>';
+                            } 
+                        ?>
                     </div>
                     <?php
                 }
                 else{?>
                 
-                        <i class="fas fa-file-download fa-fw"></i> 
                     </a>
                     <!-- Dropdown - Messages -->
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -109,64 +198,124 @@
                                 <div class=" text-gray-900">No New Message About request.</div>
                             </div>
                         </a> 
-                        <a class="dropdown-item text-center small text-gray-500" href="#">View More Messages</a>
+                        <a class="dropdown-item text-center small text-gray-500" href="DisplayRequest.php">View All Messages</a>
                     </div>
                     <?php
                 }?>
             </li> 
 
 
-            <!-- Nav Item - Messages --> 
-            <?php
-            $res3 = mysqli_query($db, "SELECT * FROM maintenancerequest WHERE User_Namee='$_SESSION[username]' LIMIT 3");
-             
-            ?>
+            <!-- Nav Item - Messages Like When request is Maintained or Inprogress-->  
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-envelope fa-fw"></i>
+                    <i class="fas fa-file-download fa-fw"></i>
                     <!-- Counter - Messages -->
-                    
-                    <?php 
-                    if($requests < 1 ){
-                        echo '<span class="badge badge-success badge-counter">'. $requests .'</span>';
-                    }
-                    ?>
-                </a>
+                      
 
                 <?php   
-                if($requests > 0 ){  
+                    $messageD = mysqli_query($db, "SELECT * FROM maintenancerequest WHERE User_Namee='$_SESSION[username]' AND Request_Status != 'PENDING' AND Request_Status != 'ACCEPTED' AND Notification_E = 'Not_Seen' ORDER BY RAND() limit 3 ");
+ 
                     $result1 = mysqli_query($db,"SELECT * FROM maintenancerequest, user  WHERE maintenancerequest.User_Namee = user.User_Namee  ");
                     $req =mysqli_fetch_array($result1); 
                     $req2 =mysqli_num_rows($result1); 
 
-                    $data= mysqli_query($db,"SELECT * FROM  maintenancerequest, user WHERE maintenancerequest.User_Namee = user.User_Namee   ");
-
-                    ?>
                     
+                if($messages > 0 ){ ?>
+                        <!-- Counter - Messages fas fa-file-download -->
+                        <span class="badge badge-danger badge-counter"><?php echo $messages;?></span>
+                    </a>
+
                     <!-- Dropdown - Messages --> 
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
                         <h6 class="dropdown-header"> Order Center </h6>
                         
                         <div class="font-weight-bold">
-                            <div class="text-truncate"> Hello 
+                            <div class="text-truncate pl-2"> Hello 
                                 <?php echo $req['First_Name'] ?>
                             </div>
                         </div>
                         
                         <?php  
-                        while ($info2 = mysqli_fetch_array($res3)) { 
-                            ?>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="dropdown-list-image mr-3"> 
-                                    <div class=" "></div>
-                                </div>
-                                <div class="font-weight-bold" onclick="window.location='displayrequest.php'; ">
-                                    <div class="text-truncate"> <?php echo $info2['Ticket_Number'] ?> has been <?php echo $req['Request_Status'] ?></div>
-                                    <div class="small text-gray-500"><?php echo $info2['Assigned_To'] ?> · 58m</div>
-                                </div>
-                            </a> 
-                            <?php 
+                        while ($info2 = mysqli_fetch_array($messageD)) {  
+                            if ($info2['Request_Status'] == "MAINTAINED") {?>  
+                                <form action="./includes/NotificationSeen.php" method="post">
+                                    <input type="text" name="ticketnumber" id="ticketnumber" value="<?php echo $info2['Ticket_Number'] ?>" hidden>
+                                    <button type="submit" name='seenN' class=" btn-link " >
+                                        <a class="dropdown-item d-flex align-items-center mx-auto" href="#">
+                                            
+                                            <div class="font-weight-bold mx-auto" onclick="window.location='displayrequest.php'; ">
+                                                <div class="text-truncate"> <?php echo $info2['Ticket_Number'] ?> has been <?php echo $info2['Request_Status'] ?></div>
+                                                <div class="small text-gray-500"><?php echo $info2['Assigned_To'] ?> ·   <span class="text-warning ml-1"> 
+                                                    <?php
+                                                        $date=date("Y-m-d H:i:s");
+                
+                                                        $date1=date_create($info2["Requested_Date"]);
+                                                        $date2=date_create($date);
+                                                        $diff=date_diff($date1, $date2);
+                                                        
+                                                        
+                                                        if ($diff->format(" %a days Ago") > 365) {
+                                                            echo $diff->format(" %Y Year Ago");
+                                                        } elseif ($diff->format(" %a days Ago") > 29 && $diff->format(" %a days Ago") <= 365) {
+                                                            echo $diff->format(" %m Month Ago");
+                                                        } elseif ($diff->format(" %a Days Ago") < 29 && $diff->format(" %a Days Ago") > 0) {
+                                                            echo $diff->format(" %a Days Ago");
+                                                        } elseif ($diff->format(" %a Days Ago") == 0 && $diff->format(" %H hour Ago") > 0 && $diff->format(" %H hour Ago") < 24) {
+                                                            echo $diff->format(" %H Hour Ago");
+                                                        } elseif ($diff->format(" %a days Ago") == 0 && $diff->format(" %H hour Ago") < 1 && $diff->format(" %i Minute Ago") <= 60) {
+                                                            echo $diff->format(" %i Minute Ago");
+                                                        } else {
+                                                            // %a outputs the total number of days
+                                                            echo $diff->format(" %a Day  Ago");
+                                                        }
+                                                    ?> </span>
+                                                </div>
+                                            </div>
+                                        </a> 
+                                    </button>
+                                </form>
+                                <?php
+                            } 
+                            else{ ?> 
+                                <form action="./includes/NotificationSeen.php" method="post">
+                                    <input type="text" name="ticketnumber" id="ticketnumber" value="<?php echo $info2['Ticket_Number'] ?>" hidden>
+                                    <button type="submit" name='seenN' class=" btn-link " >
+                                        
+                                        <a class="dropdown-item d-flex align-items-center mx-auto" href="#">
+                                        
+                                            <div class="font-weight-bold mx-auto" style="margin-left: 28px!important;"  onclick="window.location='displayrequest.php'; ">
+                                                <div class="text-truncate"> <?php echo $info2['Ticket_Number'] ?> Is <?php echo $info2['Request_Status'] ?></div>
+                                                <div class="small text-gray-500" style="margin-left: 34px!important;" ><?php echo $info2['Assigned_To'] ?> . <span class="text-warning ml-1"> 
+                                                    <?php
+                                                        $date=date("Y-m-d H:i:s");
+                
+                                                        $date1=date_create($info2["Requested_Date"]);
+                                                        $date2=date_create($date);
+                                                        $diff=date_diff($date1, $date2);
+                                                        
+                                                        
+                                                        if ($diff->format(" %a days Ago") > 365) {
+                                                            echo $diff->format(" %Y Year Ago");
+                                                        } elseif ($diff->format(" %a days Ago") > 29 && $diff->format(" %a days Ago") <= 365) {
+                                                            echo $diff->format(" %m Month Ago");
+                                                        } elseif ($diff->format(" %a Days Ago") < 29 && $diff->format(" %a Days Ago") > 0) {
+                                                            echo $diff->format(" %a Days Ago");
+                                                        } elseif ($diff->format(" %a Days Ago") == 0 && $diff->format(" %H hour Ago") > 0 && $diff->format(" %H hour Ago") < 24) {
+                                                            echo $diff->format(" %H Hour Ago");
+                                                        } elseif ($diff->format(" %a days Ago") == 0 && $diff->format(" %H hour Ago") < 1 && $diff->format(" %i Minute Ago") <= 60) {
+                                                            echo $diff->format(" %i Minute Ago");
+                                                        } else {
+                                                            // %a outputs the total number of days
+                                                            echo $diff->format(" %a Day  Ago");
+                                                        }
+                                                    ?> </span>
+                                                </div>
+                                            </div>
+                                        </a> 
+                                    </button>
+                                </form>
+                            <?php }
                         }   ?> 
                         <a class="dropdown-item text-center small text-gray-500" href="displayrequest.php">Read More Messages</a>
                     </div> 
@@ -178,7 +327,7 @@
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="messagesDropdown">
                         <h6 class="dropdown-header">
-                            zz Order Center
+                            Order Center
                         </h6>
                         <a class="dropdown-item d-flex align-items-center" href="#"> 
                             <div class="font-weight-bold">
@@ -222,5 +371,4 @@
             </li> 
         </ul> 
     </nav>      
-    <!-- End of Topbar -->                      
-  
+    <!-- End of Topbar -->    

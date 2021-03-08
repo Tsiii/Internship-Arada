@@ -21,7 +21,7 @@
         <p class="h3 mb-2 text-gray-800 " style="text-align:center;" >Display Requests</p>  
         
         <a href="#"class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="window.print()">
-            <i class="fas fa-download fa-sm text-white-50"> </i> Generate Report
+            <i class="fas fa-download fa-sm text-white-50"> </i>  Print
         </a>   
     </div> 
 

@@ -2,7 +2,7 @@
     include("security.php");  
     include("sidemenu.php"); 
     
-    mysqli_query($db,"UPDATE maintenancerequest SET Notification_E = 'Seen'  WHERE User_Namee= '$_SESSION[username]'  ");
+    //mysqli_query($db,"UPDATE maintenancerequest SET Notification_E = 'Seen'  WHERE User_Namee= '$_SESSION[username]'  ");
 
     include("top.php"); 
 ?>
@@ -28,8 +28,8 @@
     <!-- Page Heading -->
     <div class="non-printable d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800"> </h1>
-        <a href="#"class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="window.print()">
-            <i class="fas fa-download fa-sm text-white-50"> </i> Generate Report</a>
+        <a href="#"class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2"  onclick="window.print()">
+            <i class="fas fa-download fa-sm text-white-50"> </i> Print </a>
     </div> 
 
     <!-- Page Heading -->
@@ -93,13 +93,16 @@
                                 <tr>
                                     <?php  
                                     while($row=mysqli_fetch_array($res)){
-                                        ?>   
-                                        <td> <?php echo $row["Ticket_Number"]; ?></td> 
+                                        $position = 15;  
+                                        $readPercent= $row["Request_Description"];
+                                        $reqDesShort = substr($readPercent, 0, $position); 
+                                        ?>                                       
+                                        <td> <a  href='DetailedRequest.php?ticketnumber=<?php echo $row["Ticket_Number"]?>'> <?php echo $row["Ticket_Number"]; ?></td> 
                                         <td> <?php echo $row["User_Namee"]; ?></td>  
                                         <td> <?php echo $row["Woreda"]; ?> </td>
                                         <td> <?php echo $row["Services"]; ?> </td>
                                         <td> <?php echo $row["Computer_Type"]; ?> </td> 
-                                        <td> <?php echo $row["Request_Description"]; ?></td>  
+                                        <td> <?php echo $reqDesShort; ?></td>  
                                         <td> <?php echo $row["Request_Status"]; ?></td>  
                                         <td> <?php echo $row["Assigned_To"]; ?> </td>   
                                         <td><?php echo $row["Requested_Date"];?> </td>
@@ -114,7 +117,8 @@
                                                 <a class="btn-circle btn-success far fa-calendar-check " id="maintained" href='Maintained.php?ticketnumber=<?php echo $row["Ticket_Number"]?>'> </a> 
                                                 <a  class=" btn-circle btn-danger far fa-calendar-times" href="RejectRequest.php?ticketnumber=<?php echo $row["Ticket_Number"]?>"> </a> <?php
                                             }
-                                            elseif ($row["Request_Status"] == "MAINTAINED") { ?> <?php
+                                            elseif ($row["Request_Status"] == "MAINTAINED") { ?>  
+                                                <p class="btn-dark p-2" id="maintained" href='Maintained.php?ticketnumber=<?php echo $row["Ticket_Number"]?> '> Completed </a> <?php
                                             }
                                             else{ ?> 
                                                 <input type="submit" name="submit2" class="btn btn-primary" value="Save">   <?php

@@ -54,13 +54,7 @@
   
             <!-- Nav Item - Pages Collapse Menu --> 
             <li class="nav-item"> 
-                 
-                <a class="nav-link collapsed" href="DisplayUser.php"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fa fa-home"></i>
-                    <span> User Information </span>
-                </a>    
-                
+                  
                 <a class="nav-link collapsed" href="DisplayRequest.php"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa fa-desktop"></i>
