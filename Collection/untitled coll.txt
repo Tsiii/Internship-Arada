@@ -1,0 +1,38 @@
+if ($infos["Notification_IT"] == 'Not_Seen' ) {
+                                        if (in_array('AR',$infos["Notification_IT"],TRUE)) {
+                                        echo '4444';  }
+                                        ?><a class="dropdown-item d-flex align-items-center" href="DisplayRequest.php" 
+                                            onclick="<?php mysqli_query($db, "UPDATE maintenancerequest SET Notification_IT = CONCAT(Notification_IT,' qqqqq+ ') WHERE Assigned_To = 'All' OR Assigned_To ='$_SESSION[username]' AND Request_Status = 'PENDING' AND Notification_IT NOT LIKE '%$_SESSION[username]%' AND Services = '$infos[Services]' "); ?>">
+                                        <?php
+                                    }
+                                    elseif (in_array('A',$infos["Notification_IT"],TRUE)) {
+                                        echo '333';  ?>                                                              
+                                        <?php } 
+                                    
+                                    else {
+                                        echo '222';?> 
+                                        <a class="dropdown-item d-flex align-items-center" href="DisplayRequest.php" onclick="<?php mysqli_query($db, "UPDATE maintenancerequest SET  Notification_IT = CONCAT(Notification_IT, ', ' , '$_SESSION[username]') WHERE Assigned_To = 'All' OR Assigned_To ='$_SESSION[username]' AND Request_Status = 'PENDING' AND Notification_IT NOT LIKE '%$_SESSION[username]%' AND  Services = '$infos[Services]' "); ?>">       
+                                                                                                                                            <?php   //UPDATE maintenancerequest SET Notification_IT = CONCAT(Notification_IT,'AR-IT-004') WHERE Services = 'SCREEN' AND Request_Status = 'PENDING' AND Assigned_To = 'All'
+                                          }?> 
+
+
+
+
+
+                            $note = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To = 'All' OR Assigned_To ='$_SESSION[username]' AND Request_Status = 'PENDING' AND Notification_IT NOT LIKE '%$_SESSION[username]%' limit 3 ");
+
+
+
+
+
+                            //$self = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To = '$_SESSION[username]' AND Request_Status = 'PENDING' AND Notification_IT = 'Not_Seen' ");    
+
+
+
+
+
+
+    $notifications = 0;
+    $notification = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To = 'All' OR Assigned_To = '$_SESSION[username]' AND Request_Status = 'PENDING' AND Notification_IT NOT LIKE '%$_SESSION[username]%' ");
+    $notifications = mysqli_num_rows($notification); 
+  

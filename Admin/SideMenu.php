@@ -135,8 +135,8 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header"> Screens:</h6>
-                        <a class="collapse-item" href="login.php">Login</a> 
+                        <h6 class="collapse-header"> Screens:</h6> 
+                        <a class="collapse-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>  
                         
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>

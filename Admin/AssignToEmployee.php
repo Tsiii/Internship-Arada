@@ -30,16 +30,14 @@
                  
                 if (isset($_POST['submit0'])) {
                     $res0 = mysqli_query($db, "SELECT * FROM maintenancerequest WHERE  Assigned_To ='All'   ");   
-                    $row2= mysqli_num_rows($res0);   
-                    $row1= mysqli_fetch_array($res0); 
+                    $row2= mysqli_num_rows($res0);    
                       
                     if ($row2 == 0) {
                         echo ' <div class="alert alert-warning " style="margin: auto; max-width: fit-content;">
                             <strong style="width:100%;">There Is No New Request That is Not Assigned</strong> 
                         </div> ';
                     }
-                    else{  
-                        $row12 = mysqli_fetch_array($res0); ?> 
+                    else{    ?> 
                         <table class="table table-bordered">
                             <thead>
                                 <th>Ticket Number</th>
@@ -48,10 +46,10 @@
                                 <th>Option </th> 
                             </thead>
                             <tbody>
-                                <tr>  
-                                <?php  
-                                    ?> 
-
+                                <?php 
+                                while($row1 = mysqli_fetch_array($res0)) {  ?>
+                                     
+                                    <tr>   
                                     <form name="form1" action="" method="post" style="margin:0 auto; margin-top:15px; margin-bottom:15px;" >                  
                                         <input type="text" name="ticketnumber1" value="<?php echo $row1["Ticket_Number"] ?>" class="form-control" hidden/> 
 
@@ -69,9 +67,10 @@
                                             </select>  
                                         </td> 
                                         <td><input type="submit" name="submit2" class="form-control btn btn-primary" value="Assign Request"  /></td>
-                                            
+                                        
                                 </tr>   
-                                </form>
+                                </form><?php 
+                                }      ?>
                             </tbody> 
                         </table>  
                         <?php
