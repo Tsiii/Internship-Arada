@@ -42,7 +42,7 @@
     background: url(Images/forlogin.jpg) no-repeat center center fixed;">  
     <div class="mb-4 mb-lg-0 col-md-5  border rounded border-light p-4 card " style="background-color: #ffffff2e; color:#00ffd0;; margin:25px 75px!important;">
         <h1 class="text-center text-md-center mb-0 h3">Create an account</h1> 
-        <form action="#" class="mb-4 mb-lg-0 col-md-10 "style="margin: 0 auto;">
+        <form action="" class="mb-4 mb-lg-0 col-md-10 "style="margin: 0 auto;">
 
             <!-- Form -->
             <div class="form-group mb-2">
@@ -80,7 +80,7 @@
                     <label for="password">Your Password</label>
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon4"><span class="fas fa-unlock-alt"></span></span>
-                        <input type="password" placeholder="Password" class="form-control" id="password" required="">
+                        <input type="password" name='password' placeholder="Password" class="form-control" id="password" required="">
                     </div>  
                 </div>
                 <!-- End of Form -->
@@ -100,7 +100,7 @@
                     <label for="phone">phone </label>
                     <div class="input-group">
                         <span class="input-group-text" id="basic-addon5"><span class="fas fa-phone"></span></span>
-                        <input type="tel" placeholder="Phone" class="form-control" id="phone" required="">
+                        <input type="number" placeholder="Phone / Ip Phone" name='phone' class="form-control" id="phone" required="">
                   </div>  
                 </div>    
                 <!-- End of Form --> 
@@ -112,11 +112,25 @@
                         <span class="input-group-text" id="basic-addon5"><span class="fab fa-elementor"></span></span> 
                         <select class="form-control" id="department" name="department" required="">
                             <option >Select Department</option>
-                            <option name="department" value="ICT">0</option> 
+                            <option name="department" value="ICT">ICT</option> 
                         </select>
                     </div>  
                 </div>    
                 <!-- End of Form -->
+                
+                <!-- Form -->
+                <div class="form-group mb-2">
+                    <label for="phone">phone </label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="basic-addon5"><span class="fas fa-team"></span></span> 
+                        <input type="text"  class="form-control" placeholder="Team" name="team" id="team" required=""/></td>
+
+                  </div>  
+                </div>    
+                <!-- End of Form --> 
+                <tr>
+                                <td><input type="text"  class="form-control" placeholder="Last name" name="lastname" required=""/></td>
+                            </tr> 
 
                 <!-- Form -->
                 <div class="form-group mb-2">
@@ -140,21 +154,7 @@
                     </div>  
                 </div>    
                 <!-- End of Form -->
-
-                <!-- Form -->
-                <div class="form-group mb-2">
-                    <label for=" "> User Type </label>
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon5"><span class="fas fa-user-tie"></span></span>
-                        <select class="form-control" name="usertype" required=""> 
-                            <option>Select User Type</option> 
-                            <option  name="usertype" value="IT Employee">IT Employee</option>
-                            <option  name="usertype" value="Employee" >Employee</option> 
-                        </select>   
-                    </div>  
-                </div>    
-                <!-- End of Form --> 
-
+  
                 <!-- Form -->
                 <div class="form-group mb-2">
                     <label for=" ">User Image </label>
@@ -173,7 +173,7 @@
                     </label>
                 </div>
             </div>
-            <button type="submit" name="register" class="btn btn-block btn-primary">Sign in</button>
+            <button type="submit" name="register" class="btn btn-block btn-primary">Sign Up</button>
         </form>
 
         <div class="mt-3 mb-4 text-center">
@@ -187,11 +187,10 @@
             </span>
         </div>
     </div>  
-
+     
     <?php
 
-    if (isset($_POST['register'])) { 
-
+    if (isset($_POST['register'])) {  
         $firstname = mysqli_real_escape_string($db,$_POST['firstname']);
         $middlename = mysqli_real_escape_string($db,$_POST['middlename']);
         $lastname = mysqli_real_escape_string($db,$_POST['lastname']);
@@ -224,9 +223,9 @@
             $username ++ ;    
 
             if(mysqli_query($db,"INSERT INTO user (ID,First_Name,Middle_Name,Last_Name,User_Namee,User_Password,
-                Phone,Woreda,User_Image,User_Type,Department, Registered_Date)
+                Phone,Woreda,User_Image,Department, Registered_Date)
                 VALUE ('$id','$_POST[firstname]','$_POST[middlename]','$_POST[lastname]','$username',
-                '$_POST[password]','$_POST[phone]','$_POST[woreda]','$dst1','$_POST[usertype]','$_POST[department]', ' $date')")){
+                '$_POST[password]','$_POST[phone]','$_POST[woreda]','$dst1','$_POST[department]', ' $date')")){
                 
                 $_SESSION["username"]=$username; 
                 $_SESSION["status"]="Pending"; 

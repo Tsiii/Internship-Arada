@@ -1,9 +1,11 @@
-<?php 
-    include("../includes/server.php");  
-            
+<?php   
     $notifications =0;
-    $notification = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Notification_A = 'Not_Seen' AND Request_Status ='PENDING' OR Assigned_To ='All' ");
-    $notifications =mysqli_num_rows($notification);   
+    $notification = mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Request_Status ='PENDING' AND Notification_A = 'Not_Seen' ");
+    $notifications =mysqli_num_rows($notification);
+
+    $newusernotifications =0;
+    $newusernotification = mysqli_query($db,"SELECT * FROM user WHERE User_Status ='PENDING' ");
+    $newusernotifications =mysqli_num_rows($newusernotification);   
 
     $requests=0;
     $res= mysqli_query($db,"SELECT * FROM maintenancerequest WHERE Assigned_To ='$_SESSION[username]' AND Request_Status !='MAINTAINED' ");
@@ -142,7 +144,7 @@
                             </form>
                             <?php
                         }                   
-                        echo '<a class="dropdown-item text-center small text-gray-500 bg-light" href="#">Read More Messages</a>';
+                        echo '<a class="dropdown-item text-center small text-gray-500 bg-light" href="DisplayRequest.php">Read More Messages</a>';
                     ?>
                 </div>
                 <?php
@@ -172,14 +174,15 @@
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-globe fa-fw"></i> 
-            </a>
+ 
 
             <?php 
             if($requests > 0 ){ ?>
-                
-                <!-- Counter - Order -->
-                <span class="badge badge-success badge-counter"><?php echo $requests;?></span> 
+                    <i class="fa fa-globe fa-fw"></i> 
+            
+                    <!-- Counter - Order -->
+                    <span class="badge badge-success badge-counter"><?php echo $requests;?></span> 
+                </a> 
 
                 <!-- Dropdown - Order -->
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
@@ -236,8 +239,11 @@
             } 
             else{
                 ?>
-                <!-- Counter - Order -->
-                <span class="badge badge-counter"></span>
+                    <i class="fa fa-globe fa-fw"></i> 
+            
+                    <!-- Counter - Order -->
+                    <span class="badge badge-counter"></span>
+                </a>
 
                 <!-- Dropdown - Order -->
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -247,6 +253,98 @@
                     </h6> 
                         <div class="font-weight-bold align-items-center py-2">
                             <div class="text-truncate text-center">You Don't Have Any New Orders Yet.</div> 
+                        </div> 
+                </div>
+                <?php
+            }
+            ?>
+        </li> 
+        
+        <!-- Nav Item - new user notifications -->
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                
+
+            <?php 
+            if($newusernotifications > 0 ){ ?>
+                    <i class="fa fa-user fa-fw"></i>  
+                    <!-- Counter - new user notifications -->
+                    <span class="badge badge-success badge-counter"><?php echo $newusernotifications;?></span> 
+                </a>
+
+                <!-- Dropdown - new user notifications -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                    <h6 class="dropdown-header"> Order Center</h6>Hi there! 
+                    <?php
+                    $data= mysqli_query($db,"SELECT * FROM user WHERE User_Status ='PENDING'  LIMIT 3   ");
+    
+                    while ($infos = mysqli_fetch_array($data)) {  ?>  
+
+                        <form action="displaynewuser.php" method="post">
+                            <input type="text" name="username" id="username" value="<?php echo $infos['User_Namee'] ?>" hidden>
+                            <button type="submit" name='view' class="btn-link" >
+                                    
+                                <a class="dropdown-item d-flex align-items-center" >
+                                    <div class="dropdown-list-image mr-3">  
+                                        <img  src="<?php echo $infos["User_Image"]; ?>"  alt="">
+                                                 
+                                    </div>
+
+                                    <div class="font-weight-bold">
+                                            
+                                        <div class="text-truncate"><?php echo $infos["First_Name"] ; ?> is Waiting for Acceptance  </div>
+                                        <div class="small text-gray-500"><?php echo $infos["User_Namee"];?> <span class="text-warning ml-1"> 
+                                            <?php
+                                                $date=date("Y-m-d H:i:s");
+
+                                                $date1=date_create($infos["Registered_Date"]);
+                                                $date2=date_create(date("Y-m-d H:i:s"));
+                                                $diff=date_diff($date1, $date2);
+                                                
+                                                if ($diff->format(" %a days Ago") > 365) {
+                                                    echo $diff->format(" %Y Year Ago");
+                                                } elseif ($diff->format(" %a days Ago") <= 365 && $diff->format(" %a days Ago") > 29 ) {
+                                                    echo $diff->format(" %m Month Ago");
+                                                } elseif ($diff->format(" %a Days Ago") < 29 && $diff->format(" %a Days Ago") > 0) {
+                                                    echo $diff->format(" %a Days Ago");
+                                                } elseif ($diff->format(" %a Days Ago") == 0 && $diff->format(" %H hour Ago") > 0 && $diff->format(" %H hour Ago") < 24) {
+                                                    echo $diff->format(" %H Hour Ago");
+                                                } elseif ($diff->format(" %a days Ago") == 0 && $diff->format(" %H hour Ago") < 1 && $diff->format(" %i Minute Ago") <= 60) {
+                                                    echo $diff->format(" %i Minute Ago");
+                                                } else {
+                                                    // %a outputs the total number of days
+                                                    echo $diff->format(" %a Day  Ago");
+                                                } 
+                                            ?> 
+                                        </div> 
+                                    </div>
+                                </a> 
+                            </button>
+                        </form>
+
+                            
+                        <?php 
+                        }  
+                    ?>
+                    <a class="dropdown-item text-center small text-gray-500" href="displaynewuser.php">See More Users</a>
+
+                </div> 
+                <?php 
+            } 
+            else{
+                ?>
+                <!-- Counter - new user notifications -->
+                <span class="badge badge-counter"></span>
+
+                <!-- Dropdown - new user notifications -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    aria-labelledby="messagesDropdown">
+                    <h6 class="dropdown-header">
+                        New user Center
+                    </h6> 
+                        <div class="font-weight-bold align-items-center py-2">
+                            <div class="text-truncate text-center">You Don't Have Any New User Yet.</div> 
                         </div> 
                 </div>
                 <?php

@@ -61,7 +61,7 @@
                                 <td><input type="text"  class="form-control" placeholder="Last name" name="lastname" required=""/></td>
                             </tr>  
                             <tr>
-                                <td><input type="tel"  class="form-control" placeholder="Phone" name="phone" required=""/></td>
+                                <td><input type="number"  class="form-control" placeholder="Phone/ Ip phone" name="phone" required=""/></td>
                             </tr>  
                             <tr>
                                 <td><input type="password"  class="form-control" placeholder="Password" name="password" required=""/></td>
@@ -79,7 +79,10 @@
                                         } ?> 
                                     </select>
                                 </td>
-                            </tr>  
+                            </tr>
+                            <tr>
+                                <td><input type="text"  class="form-control" placeholder="Team" name="team" required=""/></td>
+                            </tr>   
                             <tr>
                                 <td> 
                                     <select class="form-control" id="sel1" name="woreda" required="">

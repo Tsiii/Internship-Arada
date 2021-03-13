@@ -1,10 +1,9 @@
-<?php
-
+<?php 
     session_start();
 
     include("../includes/server.php"); 
      
-    if (empty($_SESSION['usertype']) ||$_SESSION['usertype'] !== 'ADMIN') {
+    if (empty($_SESSION['usertype']) || $_SESSION['usertype'] !== 'ADMIN') {
         
         //unset($_SESSION["username"]); 
         //unset($_SESSION['usertype'] ); 

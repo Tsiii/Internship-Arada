@@ -25,9 +25,10 @@
             $row2= mysqli_num_rows($res0);    
             
         if(isset($_POST["submit2"])){   
-                         
-            $ticketnumber = $_GET["ticketnumber"];        
             
+    
+            $ticketnumber = $_GET["ticketnumber"];
+                                
             $res = mysqli_query($db, "SELECT Inprogress_Comment FROM maintenancerequest WHERE Ticket_Number='$ticketnumber'  And Assigned_To = '$_SESSION[username]' ");
             $row=mysqli_fetch_array($res);
             
