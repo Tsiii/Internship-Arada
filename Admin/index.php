@@ -44,6 +44,12 @@ while ($row1=mysqli_fetch_array($result)) {
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+        <a href="#" class="d-none d-sm-inline-block  shadow-sm"  >
+            <input type="datetime" name="datetime" id="">
+        <i
+                class="fas fa-calender fa-sm text-white-50"> 
+            </i> Print
+        </a>
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"  onclick="window.print()"><i
                 class="fas fa-download fa-sm text-white-50"> 
             </i> Print
@@ -331,7 +337,7 @@ while ($row1=mysqli_fetch_array($result)) {
 <!-- /.container-fluid -->
  
 <?php   
-    
+
 ?>  
 
 
