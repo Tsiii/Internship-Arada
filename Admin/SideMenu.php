@@ -27,16 +27,18 @@
  
   <!-- daterange picker -->
   <link rel="stylesheet" href="../plugins/daterangepicker/daterangepicker.css"> 
+  
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"> 
 
 
 
 
-  <script type="text/javascript" src="/path/to/jquery.js"></script>
-<script type="text/javascript" src="/path/to/moment.js"></script>
-<script type="text/javascript" src="/path/to/tempusdominus-bootstrap-4.min.js"></script>
-<link rel="stylesheet" href="/path/to/tempusdominus-bootstrap-4.min.css"/>
+  <script type="text/javascript" src="../plugins/jquery/jquery.js"></script>
+<script type="text/javascript" src="../plugins/moment/moment.min.js"></script>
+<script type="text/javascript" src="../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"/>
+
 </head> 
 <body id="page-top">
 

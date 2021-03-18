@@ -74,8 +74,7 @@
             separator: ' - ',
             applyLabel: 'Apply',
             cancelLabel: 'Cancel',
-            weekLabel: 'W',
-            customRangeLabel: 'Custom Range',
+            weekLabel: 'W', 
             daysOfWeek: moment.weekdaysMin(),
             monthNames: moment.monthsShort(),
             firstDay: moment.localeData().firstDayOfWeek()
@@ -100,20 +99,22 @@
         if (typeof options.template !== 'string' && !(options.template instanceof $))
             options.template =
             '<div class="daterangepicker">' +
-                '<div class="ranges"></div>' +
-                '<div class="drp-calendar left">' +
-                    '<div class="calendar-table"></div>' +
-                    '<div class="calendar-time"></div>' +
-                '</div>' +
-                '<div class="drp-calendar right">' +
-                    '<div class="calendar-table"></div>' +
-                    '<div class="calendar-time"></div>' +
-                '</div>' +
-                '<div class="drp-buttons">' +
-                    '<span class="drp-selected"></span>' +
-                    '<button class="cancelBtn" type="button"></button>' +
-                    '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
-                '</div>' +
+                '<form action="" method="post" id="myForm" name="formdaterange"  >' + 
+                    '<div class="ranges"></div>' +
+                    '<div class="drp-calendar left">' +
+                        '<div class="calendar-table"></div>' +
+                        '<div class="calendar-time"></div>' +
+                    '</div>' +
+                    '<div class="drp-calendar right">' +
+                        '<div class="calendar-table"></div>' +
+                        '<div class="calendar-time"></div>' +
+                    '</div>' +
+                    '<div class="drp-buttons">' +
+                        '<span class="drp-selected"></span>' +
+                        '<button class="cancelBtn" type="button"></button>' +
+                        '<button class="applyBtn" disabled="disabled" type="button"></button> ' +
+                    '</div>' +
+                '</form>';
             '</div>';
 
         this.parentEl = (options.parentEl && $(options.parentEl).length) ? $(options.parentEl) : $(this.parentEl);
@@ -151,14 +152,7 @@
 
             if (typeof options.locale.weekLabel === 'string')
               this.locale.weekLabel = options.locale.weekLabel;
-
-            if (typeof options.locale.customRangeLabel === 'string'){
-                //Support unicode chars in the custom range name.
-                var elem = document.createElement('textarea');
-                elem.innerHTML = options.locale.customRangeLabel;
-                var rangeHtml = elem.value;
-                this.locale.customRangeLabel = rangeHtml;
-            }
+ 
         }
         this.container.addClass(this.locale.direction);
 
@@ -351,10 +345,10 @@
 
             var list = '<ul>';
             for (range in this.ranges) {
-                list += '<li data-range-key="' + range + '">' + range + '</li>';
+                list += '<li name="rangevalue" onclick="myFunction()" data-range-key="' + range + '">' + range + '</li>';
             }
             if (this.showCustomRangeLabel) {
-                list += '<li data-range-key="' + this.locale.customRangeLabel + '">' + this.locale.customRangeLabel + '</li>';
+                list += '<li onclick="formdaterange.submit()" data-range-key="' + this.locale.customRangeLabel + '">' + this.locale.customRangeLabel + '</li>';
             }
             list += '</ul>';
             this.container.find('.ranges').prepend(list);
@@ -421,6 +415,7 @@
 
         this.container.find('.ranges')
             .on('click.daterangepicker', 'li', $.proxy(this.clickRange, this));
+            
 
         this.container.find('.drp-buttons')
             .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
